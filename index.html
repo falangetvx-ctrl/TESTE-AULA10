@@ -1,0 +1,1855 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <!-- =========================================================
+       AULA 10 PREMIUM FALANGE — ADJETIVOS POSESIVOS (ESPAÑOL)
+       4 PÁGINAS (padrão Falange Premium):
+         P1 (1 coluna): Imagem grande + modal explicativo (clique)
+         P2 (2 colunas): Áudio guiado (1 por vez) + Completa (1 erro = reset total)
+         P3 (1 coluna): Jogo SNAKE — “come” o posesivo correto (10 rodadas)
+         P4 (2 colunas): Escape Room (4 respostas → código) + Revisão + Certificado
+  ========================================================== -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Espanhol — Aula 10 (Premium Falange): Adjetivos Posesivos</title>
+
+  <style>
+  /* =========================================================
+     [INÍCIO] 0) VARIÁVEIS (Design System Falange)
+  ========================================================== */
+  :root{
+    --paper:#f3f4df;
+    --blue:#3aa0e6;
+    --violet:#9b59b6;
+    --red:#d94b3a;
+
+    --ok:#2ecc71;
+    --ink:#111;
+    --muted:rgba(0,0,0,.70);
+
+    --shadow: 0 10px 30px rgba(0,0,0,.18);
+  }
+  *{ box-sizing:border-box; }
+
+  /* =========================================================
+     [INÍCIO] 1) BODY / CENTRALIZAÇÃO (anti-corte)
+  ========================================================== */
+  body{
+    margin:0;
+    background:#e5e7eb;
+    font-family: Arial, Helvetica, sans-serif;
+    padding:10px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    overflow-x:auto;
+    overflow-y:auto;
+  }
+  .wrap{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:14px;
+    padding-bottom:18px;
+  }
+
+  /* =========================================================
+     [INÍCIO] 2) PÁGINA (A4 LANDSCAPE) + ÁREA ÚTIL
+     OBS: Mantive seu tamanho original (297mm x 340mm).
+          Se você usa 300x250mm em outras aulas, pode ajustar aqui.
+  ========================================================== */
+  .page{
+    width:297mm;
+    height:340mm;
+    background: var(--paper);
+    position:relative;
+    overflow:hidden;
+    box-shadow: var(--shadow);
+    display:block;
+    margin: 0 auto;
+  }
+  .content{
+    position:absolute;
+    left:18mm;
+    right:18mm;
+    top:16mm;
+    bottom:18mm;
+  }
+
+  /* FUNDO opcional (se você usa “igual suas aulas”) */
+  .content::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: url("fundo-español.png") center center no-repeat;
+    background-size: cover;
+    opacity: 0.10;
+    z-index:0;
+    pointer-events:none;
+  }
+  .content > *{ position:relative; z-index:1; }
+
+  /* =========================================================
+     [INÍCIO] 3) CABEÇALHO (padrão)
+  ========================================================== */
+  .titleRow{
+    margin-top:6px;
+    display:grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items:center;
+    column-gap:10px;
+  }
+  .bncc{
+    font-weight:700;
+    font-size:10pt;
+    color:#000;
+    text-align:right;
+  }
+  .centerTitle{
+    color: var(--violet);
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:0.8px;
+    font-size:11pt;
+    text-align:center;
+  }
+  .bars{
+    margin-top:5px;
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+  }
+  .bar{
+    height:7px;
+    background: var(--blue);
+    border-radius:2px;
+  }
+
+  /* =========================================================
+     [INÍCIO] 4) COLUNAS / CARDS
+  ========================================================== */
+  .cols{
+    margin-top:8px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:10px;
+  }
+  .cols.oneCol{ grid-template-columns: 1fr; }
+
+  .card{
+    background:#fff;
+    border:2px dotted var(--violet);
+    border-radius:12px;
+    padding:10px;
+  }
+  .cardTitle{
+    font-weight:900;
+    text-align:center;
+    font-size:10pt;
+    margin-bottom:8px;
+    color:#4a148c;
+    letter-spacing:.2px;
+  }
+  .hint{
+    font-size:9pt;
+    line-height:1.25;
+    color:#111;
+    text-align:center;
+  }
+  .actText{
+    font-size:9pt;
+    line-height:1.25;
+    text-align:justify;
+    margin:0;
+  }
+
+  .controls{
+    margin-top:8px;
+    display:flex;
+    gap:6px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .ctrlBtn{
+    border:2px solid rgba(0,0,0,.55);
+    background:#fff;
+    border-radius:999px;
+    padding:6px 10px;
+    font-weight:900;
+    font-size:9pt;
+    cursor:pointer;
+  }
+
+  /* =========================================================
+     [INÍCIO] 5) IMAGEM GRANDE (P1)
+  ========================================================== */
+  .bigImgWrap{
+    margin-top:10px;
+    border:4px solid rgba(0,0,0,.65);
+    border-radius:14px;
+    overflow:hidden;
+    background:#fff;
+    cursor:pointer;
+  }
+  .bigImgWrap img{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+  .hotHint{
+    margin-top:8px;
+    font-size:9pt;
+    font-weight:900;
+    text-align:center;
+    padding:8px 10px;
+    border-radius:12px;
+    background: rgba(58,160,230,.10);
+    border:2px dashed rgba(0,0,0,.22);
+  }
+
+  /* =========================================================
+     [INÍCIO] 6) INPUTS / VALIDAÇÃO (padrão Falange)
+  ========================================================== */
+  .dialogue{ font-size:10.5pt; line-height:1.55; color:#111; }
+  .dialogue b{ font-weight:900; }
+
+  .blank{
+    display:inline-block;
+    width: 120px;
+    height: 28px;
+    padding: 0 8px;
+    margin: 0 6px;
+    border: 2px solid rgba(0,0,0,.22);
+    border-radius: 6px;
+    background: #fff;
+    vertical-align: middle;
+
+    font-weight: 900;
+    font-size: 11pt;
+    text-transform: lowercase;
+    outline: none;
+  }
+  .blank.sm{ width: 90px; }
+  .blank.md{ width: 120px; }
+  .blank.lg{ width: 160px; }
+
+  .blank.is-right{
+    border-color: rgba(58,160,230,.9);
+    background: rgba(58,160,230,.08);
+  }
+  .blank.is-wrong{
+    border-color: rgba(217,75,58,.9);
+    background: rgba(217,75,58,.06);
+  }
+
+  /* =========================================================
+     [INÍCIO] 7) BADGE (progresso premium)
+  ========================================================== */
+  .doneBadge{
+    display:none;
+    margin-top:10px;
+    padding:10px 12px;
+    border-radius:14px;
+    border:2px solid rgba(46,204,113,.55);
+    background: rgba(46,204,113,.14);
+    font-weight:900;
+    color:#111;
+    text-align:center;
+  }
+
+  /* =========================================================
+     [INÍCIO] 8) MCQ (usado na revisão da P4)
+  ========================================================== */
+  .mcq{
+    margin-top:10px;
+    border:2px dashed rgba(0,0,0,.22);
+    border-radius:14px;
+    padding:10px;
+    background: rgba(155,89,182,.06);
+  }
+  .mcqQ{
+    font-weight:900;
+    font-size:10pt;
+    margin-bottom:8px;
+  }
+  .mcqOpts{
+    display:grid;
+    gap:8px;
+  }
+  .mcqOpt{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    background:#fff;
+    border:2px solid rgba(0,0,0,.14);
+    border-radius:12px;
+    padding:10px;
+  }
+  .mcqOpt input{ transform: scale(1.15); margin-top:2px; }
+  .mcqOpt label{
+    font-weight:900;
+    font-size:11pt;
+    cursor:pointer;
+  }
+  .mcqFooter{
+    margin-top:10px;
+    display:flex;
+    gap:10px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .mcqBtn{
+    height:34px;
+    padding:0 14px;
+    border-radius:999px;
+    border:2px solid rgba(0,0,0,.35);
+    background: var(--blue);
+    color:#fff;
+    font-weight:900;
+    cursor:pointer;
+  }
+  .mcqMsg{
+    font-weight:900;
+    font-size:10pt;
+  }
+
+  /* =========================================================
+     [INÍCIO] 9) REGISTRO + CERTIFICADO (padrão)
+  ========================================================== */
+  #studentRegister{
+    width: min(520px, calc(100vw - 24px));
+    margin: 14px auto 10px auto;
+    background:#fff;
+    border:3px solid var(--blue);
+    border-radius:14px;
+    padding:14px;
+    box-shadow: var(--shadow);
+  }
+  #studentRegister .regTitle{
+    font-weight:900;
+    text-align:center;
+    color: var(--violet);
+    letter-spacing:.4px;
+    margin-bottom:10px;
+  }
+  #studentRegister .regRow{
+    display:grid;
+    grid-template-columns: 92px 1fr;
+    gap:8px;
+    align-items:center;
+    margin-bottom:8px;
+  }
+  #studentRegister .regLabel{
+    font-weight:900;
+    font-size:9.5pt;
+    color:#111;
+    text-align:right;
+  }
+  #studentRegister .regInput{
+    height:34px;
+    padding:0 10px;
+    border:2px solid rgba(0,0,0,.35);
+    border-radius:10px;
+    font-weight:900;
+    outline:none;
+  }
+  #studentRegister .regBtn{
+    width:100%;
+    height:38px;
+    border:none;
+    border-radius:12px;
+    font-weight:900;
+    cursor:pointer;
+    background: var(--blue);
+    color:#fff;
+    letter-spacing:.4px;
+  }
+  #studentRegister .regHint{
+    margin-top:8px;
+    font-size:9pt;
+    text-align:center;
+    color:#111;
+  }
+
+  #certOverlay{
+    position:fixed;
+    inset:0;
+    background: rgba(0,0,0,.55);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index: 9999;
+    padding: 18px;
+  }
+  #certCard{
+    width: min(820px, 100%);
+    background: var(--paper);
+    border: 6px solid var(--blue);
+    border-radius: 18px;
+    box-shadow: 0 18px 55px rgba(0,0,0,.35);
+    padding: 18px;
+  }
+  #certInner{
+    background:#fff;
+    border: 3px dotted var(--violet);
+    border-radius: 14px;
+    padding: 18px 18px 14px 18px;
+    text-align:center;
+  }
+  #certTitle{
+    font-weight:900;
+    color: var(--violet);
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    font-size: 16pt;
+    margin: 2px 0 8px 0;
+  }
+  #certSub{
+    font-weight:900;
+    color:#111;
+    margin: 0 0 10px 0;
+  }
+  #certName{
+    font-weight:900;
+    font-size: 16pt;
+    color:#111;
+    margin: 4px 0 10px 0;
+  }
+  #certMeta{
+    font-size: 11pt;
+    color:#111;
+    line-height:1.35;
+  }
+  #certBtns{
+    margin-top: 14px;
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .certBtn{
+    height: 38px;
+    padding: 0 16px;
+    border-radius: 999px;
+    border: 2px solid rgba(0,0,0,.45);
+    background:#fff;
+    font-weight:900;
+    cursor:pointer;
+  }
+  .certBtnPrimary{
+    background: var(--blue);
+    color:#fff;
+    border-color: transparent;
+  }
+
+  /* =========================================================
+     [INÍCIO] 10) MODAL/OVERLAY EXPLICATIVO (padrão premium)
+  ========================================================== */
+  #explainOverlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9998;
+    padding: 18px;
+  }
+  #explainCard{
+    width: min(980px, 96vw);
+    background: var(--paper);
+    border: 6px solid var(--blue);
+    border-radius: 18px;
+    box-shadow: 0 18px 55px rgba(0,0,0,.35);
+    padding: 16px;
+  }
+  #explainInner{
+    background:#fff;
+    border: 3px dotted var(--violet);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+  }
+  #explainTitle{
+    font-weight: 900;
+    color: var(--violet);
+    letter-spacing: .6px;
+    text-transform: uppercase;
+    font-size: 13pt;
+    margin: 0 0 10px 0;
+  }
+  #explainES{
+    font-weight: 900;
+    font-size: 16pt;
+    color:#111;
+    margin: 0 0 8px 0;
+  }
+  #explainPT{
+    font-weight: 900;
+    font-size: 11pt;
+    color:#111;
+    margin: 0;
+    line-height:1.45;
+    text-align: left;
+  }
+  #explainBtns{
+    margin-top: 14px;
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+
+  /* =========================================================
+     [INÍCIO] 11) P2 — ÁUDIO (1 por vez) + lista visual
+  ========================================================== */
+  .p2AudioBar{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    margin-top:8px;
+  }
+  .p2Step{
+    font-weight:900;
+    font-size:10pt;
+    padding:6px 10px;
+    border-radius:999px;
+    border:2px solid rgba(0,0,0,.18);
+    background: rgba(58,160,230,.08);
+  }
+  .p2AudioBtns{
+    display:flex;
+    gap:8px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .p2AudioBtn{
+    height:34px;
+    padding:0 14px;
+    border-radius:999px;
+    border:2px solid rgba(0,0,0,.35);
+    background:#fff;
+    font-weight:900;
+    cursor:pointer;
+  }
+  .p2AudioBtnPrimary{
+    background: var(--blue);
+    color:#fff;
+    border-color: transparent;
+  }
+  .p2AudioList{
+    margin-top:10px;
+    display:grid;
+    gap:8px;
+  }
+  .p2AudioItem{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    background:#fff;
+    border:2px solid rgba(0,0,0,.14);
+    border-radius:12px;
+    padding:10px;
+  }
+  .p2Dot{
+    width:12px;
+    height:12px;
+    border-radius:999px;
+    border:2px solid rgba(0,0,0,.25);
+    margin-top:4px;
+    flex: 0 0 auto;
+  }
+  .p2Dot.on{ background: rgba(58,160,230,.90); border-color: rgba(58,160,230,.90); }
+  .p2Dot.done{ background: rgba(46,204,113,.90); border-color: rgba(46,204,113,.90); }
+  .p2AudioText{
+    font-weight:900;
+    font-size:10pt;
+    line-height:1.25;
+  }
+  .p2SmallHint{
+    margin-top:10px;
+    font-size:9pt;
+    font-weight:900;
+    text-align:center;
+    padding:8px 10px;
+    border-radius:12px;
+    background: rgba(155,89,182,.06);
+    border:2px dashed rgba(0,0,0,.20);
+  }
+
+  /* =========================================================
+     [INÍCIO] 12) P3 — SNAKE (canvas + HUD)
+  ========================================================== */
+  .snakeHud{
+    margin-top:10px;
+    font-weight:900;
+    text-align:center;
+    padding:10px 12px;
+    border-radius:14px;
+    border:2px dashed rgba(0,0,0,.22);
+    background: rgba(58,160,230,.08);
+  }
+  .snakeCanvas{
+    margin-top:10px;
+    width:100%;
+    border:3px solid rgba(0,0,0,.65);
+    border-radius:12px;
+    background:#fff;
+    display:block;
+  }
+  .snakePad{
+    margin-top:10px;
+    display:none;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+
+  /* =========================================================
+     [INÍCIO] 13) PRINT: só o certificado
+  ========================================================== */
+  @media print{
+    *{ -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body *{ visibility: hidden !important; }
+    #certOverlay, #certOverlay *{ visibility: visible !important; }
+    #certOverlay{
+      position:absolute !important;
+      inset:0 !important;
+      background:#fff !important;
+      display:block !important;
+      padding:0 !important;
+    }
+    #certCard{ box-shadow:none !important; border:0 !important; margin:0 auto !important; }
+    @page{ size:A4 landscape; margin:0; }
+  }
+
+  /* =========================================================
+     [INÍCIO] 14) ♿✅ ANTI-CORTE TOTAL + BAIXA VISÃO
+  ========================================================== */
+  html, body{ max-width:100%; }
+  img, video, canvas{ max-width:100%; height:auto; }
+
+  @media (max-width: 980px){
+    body{ padding:8px; overflow-x:auto; overflow-y:auto; }
+    .wrap{ width:100%; align-items:center; }
+
+    .page{
+      width: min(297mm, 98vw);
+      max-width: 98vw;
+      height: auto;
+      overflow: visible;
+      border-radius: 12px;
+    }
+    .content{
+      position: relative;
+      left:auto; right:auto; top:auto; bottom:auto;
+      padding: 12px;
+    }
+    .cols{ grid-template-columns:1fr; }
+    .ctrlBtn{ padding:10px 12px; font-size:12pt; }
+    .snakePad{ display:flex; }
+  }
+
+  body.lowVision{
+    font-size: 135%;
+    overflow-x:auto;
+    overflow-y:auto;
+  }
+  body.lowVision .page{
+    width: min(297mm, 98vw);
+    max-width: 98vw;
+    height: auto;
+    overflow: visible;
+  }
+  body.lowVision .content{
+    position: relative;
+    left:auto; right:auto; top:auto; bottom:auto;
+    padding: 14px;
+  }
+  body.lowVision .cols{ grid-template-columns: 1fr; }
+  body.lowVision .centerTitle{ font-size: 14pt; }
+  body.lowVision .bncc{ font-size: 12pt; }
+  body.lowVision .hint{ font-size: 11.5pt; line-height:1.5; }
+  body.lowVision .cardTitle{ font-size: 12.5pt; }
+  body.lowVision .ctrlBtn{ font-size: 12.5pt; padding:12px 14px; }
+  body.lowVision .blank{ height: 36px; font-size: 14pt; }
+  </style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     ♿ BOTÃO FLUTUANTE — BAIXA VISÃO (sempre visível)
+========================================================= -->
+<div id="a11yFab" style="
+  position:fixed; right:12px; bottom:12px; z-index:99999;
+  display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;
+">
+  <button type="button" class="ctrlBtn" onclick="toggleLowVision()"
+    style="border-radius:14px; padding:12px 14px; font-size:12pt;">
+    👁️ Baixa Visão
+  </button>
+</div>
+
+<!-- =====================================================
+     1) REGISTRO DO ALUNO (padrão)
+===================================================== -->
+<div id="studentRegister" aria-label="Registro do aluno">
+  <div class="regTitle">REGISTRO DO ALUNO</div>
+
+  <div class="regRow">
+    <div class="regLabel">NOME:</div>
+    <input id="studentName" class="regInput" autocomplete="off" placeholder="Digite o nome do aluno">
+  </div>
+
+  <div class="regRow">
+    <div class="regLabel">TURMA:</div>
+    <input id="studentClass" class="regInput" autocomplete="off" placeholder="Ex.: 3ª Etapa A / 9º Ano / etc.">
+  </div>
+
+  <div class="regRow">
+    <div class="regLabel">ESCOLA:</div>
+    <input id="studentSchool" class="regInput" autocomplete="off" placeholder="Nome da escola">
+  </div>
+
+  <button class="regBtn" type="button" onclick="saveStudent()">INICIAR ATIVIDADES</button>
+  <div class="regHint">Preencha os dados e clique em <b>INICIAR</b>.</div>
+</div>
+
+<!-- =====================================================
+     2) CERTIFICADO (automático ao concluir tudo)
+===================================================== -->
+<div id="certOverlay" aria-label="Certificado de conclusão">
+  <div id="certCard">
+    <div id="certInner">
+      <div id="certTitle">Certificado de Conclusão</div>
+      <div id="certSub">Espanhol — Aula 10 (Adjetivos Posesivos) • Premium Falange</div>
+
+      <div style="margin-top:10px; font-size:11pt; color:#111;">
+        Certificamos que
+      </div>
+      <div id="certName">—</div>
+
+      <div id="certMeta">
+        Turma: <b id="certTurma">—</b><br>
+        Escola: <b id="certEscola">—</b><br><br>
+        Concluiu todas as atividades desta apostila interativa.<br><br>
+        Data: <b id="certData">—</b> • Hora: <b id="certHora">—</b>
+      </div>
+
+      <div id="certBtns">
+        <button class="certBtn" type="button" onclick="closeCertificate()">FECHAR</button>
+        <button class="certBtn certBtnPrimary" type="button" onclick="window.print()">IMPRIMIR</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================
+     3) MODAL EXPLICATIVO (P1/P2/P3/P4)
+===================================================== -->
+<div id="explainOverlay" aria-label="Explicação">
+  <div id="explainCard">
+    <div id="explainInner">
+      <div id="explainTitle">Explicação</div>
+      <div id="explainES">—</div>
+      <div id="explainPT">—</div>
+
+      <div id="explainBtns">
+        <button class="certBtn" type="button" onclick="closeExplain()">FECHAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================
+     4) “LIVRO” (as 4 páginas) — começa oculto
+===================================================== -->
+<div class="wrap" id="book" style="display:none;">
+
+  <!-- =====================================================
+       ✅ PÁGINA 1 (1 coluna) — IMAGEM GRANDE + MODAL
+  ====================================================== -->
+  <section class="page" aria-label="Página 1 — Conteúdo (Posesivos)">
+    <div class="content">
+
+      <div class="titleRow">
+        <div class="bncc" style="padding-right:26mm;">AULA 10</div>
+        <div class="centerTitle">Adjetivos Posesivos — Entender com a tabela</div>
+        <div class="bncc" style="padding-right:2mm;">ESPAÑOL</div>
+      </div>
+
+      <div class="bars">
+        <div class="bar"></div><div style="width:12px;"></div><div class="bar"></div>
+      </div>
+
+      <div class="cols oneCol">
+        <div class="card">
+          <div class="cardTitle">1) TABELA VISUAL (clique para entender)</div>
+
+          <p class="actText" style="text-align:center;">
+            Clique na imagem para abrir uma explicação bem simples com exemplos em português.
+          </p>
+
+          <!-- IMAGEM GRANDE E CLICÁVEL -->
+          <div class="bigImgWrap" role="button" tabindex="0"
+            onclick="openPossessiveExplain()"
+            onkeydown="if(event.key==='Enter'){ this.click(); }"
+            aria-label="Imagem de adjetivos posesivos (clique para abrir explicação)">
+            <!-- ✅ IMPORTANTE: coloque este arquivo na mesma pasta do HTML -->
+            <img src="adjetivos-posesivos.jpg" alt="Tabela de adjetivos posesivos em espanhol">
+          </div>
+
+          <div class="hotHint">
+            👉 Dica: “mi/tu/su/nuestro/vuestro” geralmente vêm <b>antes</b> do substantivo.
+            “mío/tuyo/suyo…” pode vir <b>depois</b>.
+          </div>
+
+          <div class="doneBadge" id="badgeP1">✅ Página 1 concluída!</div>
+
+          <div class="controls">
+            <button class="ctrlBtn" type="button" onclick="markDone('p1')">✅ CONCLUIR PÁGINA 1</button>
+            <button class="ctrlBtn" type="button" onclick="scrollToPage(2)">➡️ IR PARA PÁGINA 2</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================
+       ✅ PÁGINA 2 — ÁUDIO GUIADO + COMPLETA (RESET TOTAL SE ERRAR)
+  ====================================================== -->
+  <section class="page" aria-label="Página 2 — Áudio + Completa (Posesivos)">
+    <div class="content">
+
+      <div class="titleRow">
+        <div class="bncc" style="padding-right:26mm;">AULA 10</div>
+        <div class="centerTitle">Escucha + Completa — Regra Falange</div>
+        <div class="bncc" style="padding-right:2mm;">PÁGINA 2</div>
+      </div>
+
+      <div class="bars">
+        <div class="bar"></div><div style="width:12px;"></div><div class="bar"></div>
+      </div>
+
+      <div class="cols">
+
+        <!-- COLUNA ESQUERDA — ÁUDIO GUIADO -->
+        <div>
+          <div class="card">
+            <div class="cardTitle">🎧 Escucha (1 por vez)</div>
+
+            <p class="actText">
+              Escuche o áudio do <b>Paso atual</b>. Depois, complete as frases na coluna da direita.
+              <br><br>
+              ✅ Só avança quando clicar em <b>VERIFICAR TUDO</b> e estiver correto.
+              <br>
+              ⚠️ <b>Regra Falange:</b> errou 1 vez → reinicia tudo e volta ao áudio 1.
+            </p>
+
+            <div class="p2AudioBar">
+              <div class="p2Step" id="p2StepText">Paso 1 de 8</div>
+
+              <div class="p2AudioBtns">
+                <button class="p2AudioBtn p2AudioBtnPrimary" type="button" onclick="p2PlayAudio()">▶️ Escuchar</button>
+                <button class="p2AudioBtn" type="button" onclick="p2Restart()">🔄 Reiniciar</button>
+                <button class="p2AudioBtn" type="button" onclick="p2Next()">➡️ Próximo</button>
+              </div>
+            </div>
+
+            <!-- player oculto (controlado pelos botões) -->
+            <audio id="p2Audio"></audio>
+
+            <!-- checklist visual (8 passos) -->
+            <div class="p2AudioList" id="p2AudioList"></div>
+
+            <div class="p2SmallHint">
+              Dica: o áudio sempre fala o tema do passo. Ex.: “Completa con <b>mi</b> y <b>mis</b>…”
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUNA DIREITA — COMPLETA -->
+        <div>
+          <div class="card">
+            <div class="cardTitle">🧩 Completa y verifica</div>
+
+            <div class="dialogue" id="p2Box">
+              <p><b>1)</b> Yo tengo <input class="blank sm p2" data-right="mi"> libro. (meu livro)</p>
+              <p><b>2)</b> Ella visita a <input class="blank sm p2" data-right="su"> mamá. (a mãe dela)</p>
+              <p><b>3)</b> Nosotros hacemos <input class="blank sm p2" data-right="nuestra"> tarea. (nossa tarefa)</p>
+              <p><b>4)</b> Tú traes <input class="blank sm p2" data-right="tus"> cuadernos. (teus cadernos)</p>
+              <p><b>5)</b> Ellos venden <input class="blank sm p2" data-right="sus"> cosas. (as coisas deles)</p>
+              <p><b>6)</b> Esa mochila es <input class="blank sm p2" data-right="mía">. (é minha — depois)</p>
+              <p><b>7)</b> Esos amigos son <input class="blank sm p2" data-right="míos">. (são meus — depois plural)</p>
+              <p><b>8)</b> ¿Dónde está <input class="blank sm p2" data-right="tu"> casa? (tua casa)</p>
+            </div>
+
+            <div class="controls" style="margin-top:12px;">
+              <button class="ctrlBtn" type="button" onclick="checkP2All()">✅ VERIFICAR TUDO</button>
+              <button class="ctrlBtn" type="button" onclick="resetP2()">🔄 REINICIAR</button>
+            </div>
+
+            <div class="doneBadge" id="badgeP2">✅ Página 2 concluída!</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="controls">
+        <button class="ctrlBtn" type="button" onclick="scrollToPage(1)">⬅️ VOLTAR</button>
+        <button class="ctrlBtn" type="button" onclick="scrollToPage(3)">➡️ PÁGINA 3</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================
+       ✅ PÁGINA 3 — SNAKE (10 rodadas)
+  ====================================================== -->
+  <section class="page" aria-label="Página 3 — Snake (Posesivos)">
+    <div class="content">
+
+      <div class="titleRow">
+        <div class="bncc" style="padding-right:26mm;">AULA 10</div>
+        <div class="centerTitle">Snake Falange — Come o posesivo correto</div>
+        <div class="bncc" style="padding-right:2mm;">PÁGINA 3</div>
+      </div>
+
+      <div class="bars">
+        <div class="bar"></div><div style="width:12px;"></div><div class="bar"></div>
+      </div>
+
+      <div class="cols oneCol">
+        <div class="card">
+          <div class="cardTitle">🐍 JOGO DA COBRINHA (10 rodadas)</div>
+
+          <p class="actText" style="text-align:center;">
+            Controle a cobrinha e coma o <b>posesivo correto</b> do alvo.
+            <br>⚠️ Errou 1 vez → reinicia do zero (Regra Falange).
+          </p>
+
+          <div class="snakeHud" id="snakeHud">Rodada 1/10 • COMER: — • Pontos: 0</div>
+
+          <canvas id="snakeCanvas" class="snakeCanvas" width="900" height="420"></canvas>
+
+          <div class="controls">
+            <button class="ctrlBtn" type="button" onclick="snakeStart()">▶️ INICIAR</button>
+            <button class="ctrlBtn" type="button" onclick="snakePause()">⏸️ PAUSAR</button>
+            <button class="ctrlBtn" type="button" onclick="snakeResetAll()">🔄 REINICIAR</button>
+            <button class="ctrlBtn" type="button"
+              onclick="openExplain('🎮 Como jogar','<div style=&quot;text-align:left;&quot;>Use as setas do teclado (ou W A S D).<br><br><b>Objetivo:</b> comer a palavra do <b>ALVO</b>.<br><b>Se comer errado</b> ou bater na parede/corpo → reinicia tudo.<br><br>Complete <b>10 rodadas</b> para concluir a Página 3.</div>')">
+              ℹ️ AJUDA
+            </button>
+          </div>
+
+          <!-- Controles mobile -->
+          <div id="snakePad" class="snakePad" aria-label="Controles mobile do Snake">
+            <button class="ctrlBtn" type="button" onclick="snakeTurn('U')">⬆️</button>
+            <div style="display:flex; gap:10px;">
+              <button class="ctrlBtn" type="button" onclick="snakeTurn('L')">⬅️</button>
+              <button class="ctrlBtn" type="button" onclick="snakeTurn('R')">➡️</button>
+            </div>
+            <button class="ctrlBtn" type="button" onclick="snakeTurn('D')">⬇️</button>
+          </div>
+
+          <div class="doneBadge" id="badgeP3">✅ Página 3 concluída!</div>
+
+          <div class="controls">
+            <button class="ctrlBtn" type="button" onclick="scrollToPage(2)">⬅️ VOLTAR PÁG 2</button>
+            <button class="ctrlBtn" type="button" onclick="scrollToPage(4)">➡️ PÁGINA 4</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================
+       ✅ PÁGINA 4 — ESCAPE ROOM + REVISÃO + CERTIFICADO
+  ====================================================== -->
+  <section class="page" aria-label="Página 4 — Escape Room (Posesivos)">
+    <div class="content">
+
+      <div class="titleRow">
+        <div class="bncc" style="padding-right:26mm;">AULA 10</div>
+        <div class="centerTitle">Escape Room — Quebre o Código</div>
+        <div class="bncc" style="padding-right:2mm;">PÁGINA 4</div>
+      </div>
+
+      <div class="bars">
+        <div class="bar"></div><div style="width:12px;"></div><div class="bar"></div>
+      </div>
+
+      <div class="cols">
+
+        <!-- ESQUERDA: Escape -->
+        <div>
+          <div class="card">
+            <div class="cardTitle">C) 4 DESAFIOS = 1 CÓDIGO</div>
+            <p class="actText">
+              Complete cada frase com o posesivo correto. Cada acerto libera uma letra.
+              No final, digite o código para concluir a Página 4.
+            </p>
+
+            <div style="margin-top:10px;">
+              <div class="dialogue">
+                <b>C1)</b> “Ese libro es ____.” (meu — depois do substantivo) →
+                <input class="blank sm p4" data-right="mío" autocomplete="off">
+              </div>
+
+              <div class="dialogue" style="margin-top:10px;">
+                <b>C2)</b> “____ casa es grande.” (minha — antes do substantivo) →
+                <input class="blank sm p4" data-right="mi" autocomplete="off">
+              </div>
+
+              <div class="dialogue" style="margin-top:10px;">
+                <b>C3)</b> “Ellos traen ____ cuadernos.” (os cadernos deles) →
+                <input class="blank sm p4" data-right="sus" autocomplete="off">
+              </div>
+
+              <div class="dialogue" style="margin-top:10px;">
+                <b>C4)</b> “Nosotros hacemos ____ tarea.” (nossa — feminino) →
+                <input class="blank sm p4" data-right="nuestra" autocomplete="off">
+              </div>
+            </div>
+
+            <div class="controls" style="margin-top:12px;">
+              <button class="ctrlBtn" type="button" onclick="checkP4Escape()">✅ VERIFICAR</button>
+              <button class="ctrlBtn" type="button" onclick="resetP4Escape()">🔄 REINICIAR</button>
+              <button class="ctrlBtn" type="button"
+                onclick="openExplain('💡 Dica do Escape','<div style=&quot;text-align:left;&quot;><b>mío</b> vai sozinho: “es mío”.<br><b>mi</b> acompanha o substantivo: “mi casa”.<br><b>sus</b> = deles/delas (plural).<br><b>nuestra</b> = nossa (feminino).</div>')">
+                💡 DICA
+              </button>
+            </div>
+
+            <div class="hotHint" style="margin-top:10px;">
+              🔒 Código: <b id="p4CodeOut">_ _ _ _</b>
+            </div>
+
+            <div class="mcq" style="margin-top:12px;">
+              <div class="mcqQ">Digite o código para concluir a Página 4:</div>
+              <div class="mcqFooter">
+                <input id="p4FinalCode" class="blank md" style="height:34px; text-transform:uppercase;" placeholder="EX.: FALG">
+                <button class="mcqBtn" type="button" onclick="checkP4FinalCode()">ABRIR</button>
+                <div class="mcqMsg" id="p4FinalMsg"></div>
+              </div>
+            </div>
+
+            <div class="doneBadge" id="badgeP4C">✅ Escape Room concluído!</div>
+          </div>
+        </div>
+
+        <!-- DIREITA: Revisão -->
+        <div>
+          <div class="card">
+            <div class="cardTitle">D) REVISÃO FINAL (1 minuto)</div>
+            <p class="hint">Marque a opção correta:</p>
+
+            <div class="mcq" id="mcqP4">
+              <div class="mcqQ">D1) “amiga ____” (amiga minha — depois do substantivo)</div>
+              <div class="mcqOpts">
+                <div class="mcqOpt">
+                  <input type="radio" name="p4q" id="p4a" value="A">
+                  <label for="p4a">amiga <b>mía</b></label>
+                </div>
+                <div class="mcqOpt">
+                  <input type="radio" name="p4q" id="p4b" value="B">
+                  <label for="p4b">amiga <b>mi</b></label>
+                </div>
+              </div>
+              <div class="mcqFooter">
+                <button class="mcqBtn" type="button" onclick="checkMcqP4()">VERIFICAR</button>
+                <div class="mcqMsg" id="p4mcqMsg"></div>
+              </div>
+            </div>
+
+            <div class="doneBadge" id="badgeP4D">✅ Revisão concluída!</div>
+            <div class="doneBadge" id="badgeP4">🏁 Página 4 concluída! Certificado liberado!</div>
+
+            <div class="controls">
+              <button class="ctrlBtn" type="button" onclick="tryFinishP4(true)">✅ FINALIZAR AULA 10</button>
+              <button class="ctrlBtn" type="button" onclick="tryOpenCertificate()">🏆 VER CERTIFICADO</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="controls">
+        <button class="ctrlBtn" type="button" onclick="scrollToPage(3)">⬅️ VOLTAR PÁG 3</button>
+      </div>
+
+    </div>
+  </section>
+
+</div><!-- /book -->
+
+<script>
+/* =========================================================
+   [INÍCIO] A) ESTADO GLOBAL (progresso da Aula 10)
+========================================================= */
+const STATE = {
+  student: { name:"", turma:"", escola:"" },
+  done: {
+    p1:false,
+    p2:false,
+    p3:false,
+    p4:false,
+    p4C:false, /* Escape OK */
+    p4D:false  /* Revisão OK */
+  },
+  p4: {
+    keys: ["_","_","_","_"],
+    final: "FALG" // código final do escape (padrão Falange curto)
+  }
+};
+
+/* =========================================================
+   [INÍCIO] B) UTILIDADES
+========================================================= */
+function nowBR(){
+  const d = new Date();
+  const pad = (n)=> String(n).padStart(2,"0");
+  return {
+    date:`${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}`,
+    time:`${pad(d.getHours())}:${pad(d.getMinutes())}`
+  };
+}
+function scrollToPage(n){
+  const pages = document.querySelectorAll(".page");
+  if(!pages[n-1]) return;
+  pages[n-1].scrollIntoView({behavior:"smooth", block:"start"});
+}
+function setBadge(id, show){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.style.display = show ? "block" : "none";
+}
+function normUp(s){ return String(s||"").trim().toUpperCase(); }
+function normLow(s){
+  return String(s||"").trim().toLowerCase().replace(/\s+/g," ");
+}
+
+/* =========================================================
+   [INÍCIO] C) BAIXA VISÃO
+========================================================= */
+function toggleLowVision(){ document.body.classList.toggle("lowVision"); }
+
+/* =========================================================
+   [INÍCIO] D) REGISTRO / CERTIFICADO
+========================================================= */
+function saveStudent(){
+  const name = document.getElementById("studentName").value.trim();
+  const turma = document.getElementById("studentClass").value.trim();
+  const escola = document.getElementById("studentSchool").value.trim();
+  if(!name || !turma || !escola){ alert("Preencha NOME, TURMA e ESCOLA."); return; }
+  STATE.student = { name, turma, escola };
+  document.getElementById("studentRegister").style.display = "none";
+  document.getElementById("book").style.display = "flex";
+  scrollToPage(1);
+}
+function isAllDone(){
+  return STATE.done.p1 && STATE.done.p2 && STATE.done.p3 && STATE.done.p4;
+}
+function openCertificate(){
+  const dt = nowBR();
+  document.getElementById("certName").innerText = STATE.student.name || "—";
+  document.getElementById("certTurma").innerText = STATE.student.turma || "—";
+  document.getElementById("certEscola").innerText = STATE.student.escola || "—";
+  document.getElementById("certData").innerText = dt.date;
+  document.getElementById("certHora").innerText = dt.time;
+  document.getElementById("certOverlay").style.display = "flex";
+}
+function closeCertificate(){ document.getElementById("certOverlay").style.display = "none"; }
+function tryOpenCertificate(){
+  if(!isAllDone()){ alert("Ainda falta concluir atividades para liberar o certificado."); return; }
+  openCertificate();
+}
+
+/* =========================================================
+   [INÍCIO] E) MODAL EXPLICATIVO
+========================================================= */
+function openExplain(es, pt){
+  document.getElementById("explainES").innerHTML = es;
+  document.getElementById("explainPT").innerHTML = pt;
+  document.getElementById("explainOverlay").style.display = "flex";
+}
+function closeExplain(){ document.getElementById("explainOverlay").style.display = "none"; }
+
+/* =========================================================
+   [INÍCIO] F) P1 — MODAL EXPLICANDO POSSESSIVOS
+========================================================= */
+function openPossessiveExplain(){
+  openExplain(
+    "📚 Adjetivos posesivos (posesión)",
+    `
+    <div style="text-align:left;">
+      <b>O que são?</b><br>
+      Em espanhol, os <b>posesivos</b> mostram <b>de quem</b> é algo:
+      “meu, tua, nosso, deles…”.<br><br>
+
+      <b>1) Antes do substantivo (mais comum)</b><br>
+      • <b>mi</b> libro = meu livro<br>
+      • <b>tu</b> casa = tua casa<br>
+      • <b>su</b> amigo = amigo dele/dela<br>
+      • <b>nuestro / nuestra</b> escuela = nossa escola<br><br>
+
+      <b>2) Depois do substantivo (ênfase)</b><br>
+      • Ese amigo es <b>mío</b>. = Esse amigo é meu.<br>
+      • Esa amiga es <b>mía</b>. = Essa amiga é minha.<br>
+      • Son amigos <b>míos</b>. = São amigos meus.<br><br>
+
+      <b>Regra rápida:</b><br>
+      Se vem <b>antes</b>, acompanha o nome: <b>mi</b> + substantivo.<br>
+      Se vem <b>depois</b>, pode vir sozinho: “es <b>mío</b>”.<br><br>
+
+      <b>Exemplos em português:</b><br>
+      • “Minha mochila” → <b>mi</b> mochila<br>
+      • “A mochila é minha” → La mochila es <b>mía</b>
+    </div>
+    `
+  );
+}
+
+/* =========================================================
+   [INÍCIO] G) CONCLUIR PÁGINAS
+========================================================= */
+function markDone(pageKey){
+  STATE.done[pageKey] = true;
+
+  if(pageKey==="p1") setBadge("badgeP1", true);
+  if(pageKey==="p2") setBadge("badgeP2", true);
+  if(pageKey==="p3") setBadge("badgeP3", true);
+  if(pageKey==="p4") setBadge("badgeP4", true);
+
+  if(isAllDone()) openCertificate();
+}
+
+/* =========================================================
+   [INÍCIO] H) P2 — COMPLETA (1 erro = reset total)
+========================================================= */
+function resetP2(){
+  const inputs = document.querySelectorAll(".p2");
+  inputs.forEach(i=>{
+    i.value = "";
+    i.classList.remove("is-right","is-wrong");
+  });
+
+  STATE.done.p2 = false;
+  setBadge("badgeP2", false);
+
+  // reset do áudio (volta pro passo 1)
+  p2Restart();
+}
+
+function checkP2All(){
+  const inputs = document.querySelectorAll(".p2");
+
+  for(const input of inputs){
+    const right = normLow(input.dataset.right);
+    const val   = normLow(input.value);
+
+    input.classList.remove("is-right","is-wrong");
+
+    if(val !== right){
+      input.classList.add("is-wrong");
+      alert("❌ Há um erro. Regra Falange: reinicia tudo e volta ao áudio 1.");
+      resetP2();
+      return;
+    }
+  }
+
+  // Tudo certo
+  inputs.forEach(i=>{
+    i.value = normLow(i.dataset.right);
+    i.classList.add("is-right");
+  });
+
+  STATE.done.p2 = true;
+  setBadge("badgeP2", true);
+
+  // marca o passo atual como concluído (para liberar “Próximo”)
+  p2MarkDoneStep();
+
+  alert("🎉 Perfeito! Página 2 (passo atual) concluída. Pode avançar no áudio.");
+}
+
+/* =========================================================
+   P2 — ÁUDIO POR PASSOS (1 por vez)
+   - 8 passos (1 áudio por vez)
+   - “Próximo” só avança se o passo atual estiver concluído
+   - Reset Falange: volta pro passo 1
+========================================================= */
+const P2AUDIO = {
+  idx: 0,
+  steps: [
+    { title:"MI / MIS",    audioSrc:"p2-01-mi-mis.mp3" },
+    { title:"TU / TUS",    audioSrc:"p2-02-tu-tus.mp3" },
+    { title:"SU / SUS",    audioSrc:"p2-03-su-sus.mp3" },
+    { title:"NUESTRO/A",   audioSrc:"p2-04-nuestro.mp3" },
+    { title:"MÍO / MÍA",   audioSrc:"p2-05-mio-mia.mp3" },
+    { title:"MÍOS / MÍAS", audioSrc:"p2-06-mios-mias.mp3" }, /* ✅ PASSO 6 ESTÁ AQUI */
+    { title:"REPASO 1",    audioSrc:"p2-07-repaso.mp3" },
+    { title:"REPASO 2",    audioSrc:"p2-08-repaso2.mp3" },
+  ],
+  done: []
+};
+
+function initP2Audio(){
+  P2AUDIO.done = new Array(P2AUDIO.steps.length).fill(false);
+  p2RenderList();
+  p2RenderStep();
+}
+
+function p2RenderList(){
+  const list = document.getElementById("p2AudioList");
+  if(!list) return;
+  list.innerHTML = "";
+
+  P2AUDIO.steps.forEach((s, i)=>{
+    const row = document.createElement("div");
+    row.className = "p2AudioItem";
+
+    const dot = document.createElement("div");
+    dot.className = "p2Dot"
+      + (i === P2AUDIO.idx ? " on" : "")
+      + (P2AUDIO.done[i] ? " done" : "");
+    row.appendChild(dot);
+
+    const tx = document.createElement("div");
+    tx.className = "p2AudioText";
+    tx.innerHTML = `Paso ${i+1}: ${s.title}`;
+    row.appendChild(tx);
+
+    list.appendChild(row);
+  });
+}
+
+function p2RenderStep(){
+  const stepText = document.getElementById("p2StepText");
+  const audio = document.getElementById("p2Audio");
+  const s = P2AUDIO.steps[P2AUDIO.idx];
+
+  if(stepText) stepText.textContent = `Paso ${P2AUDIO.idx + 1} de ${P2AUDIO.steps.length}`;
+
+  if(audio){
+    audio.src = s.audioSrc; // ✅ troque pelos seus mp3 reais
+    audio.load();
+  }
+
+  p2RenderList();
+}
+
+function p2PlayAudio(){
+  const audio = document.getElementById("p2Audio");
+  if(!audio) return;
+  audio.currentTime = 0;
+  audio.play().catch(()=>{});
+}
+
+function p2Restart(){
+  P2AUDIO.idx = 0;
+  P2AUDIO.done = new Array(P2AUDIO.steps.length).fill(false);
+
+  const audio = document.getElementById("p2Audio");
+  if(audio){
+    audio.pause();
+    audio.currentTime = 0;
+  }
+  p2RenderStep();
+}
+
+function p2MarkDoneStep(){
+  P2AUDIO.done[P2AUDIO.idx] = true;
+  p2RenderList();
+}
+
+function p2Next(){
+  if(!P2AUDIO.done[P2AUDIO.idx]){
+    alert("⚠️ Para avançar, conclua o passo atual: preencha e clique em VERIFICAR TUDO na coluna da direita.");
+    return;
+  }
+  if(P2AUDIO.idx >= P2AUDIO.steps.length - 1){
+    alert("✅ Você já chegou ao último áudio desta página!");
+    return;
+  }
+  P2AUDIO.idx++;
+  p2RenderStep();
+}
+
+/* =========================================================
+   [INÍCIO] I) P4 — ESCAPE ROOM (4 respostas → código FALG)
+========================================================= */
+function updateP4Out(){
+  const out = document.getElementById("p4CodeOut");
+  if(!out) return;
+  out.innerText = `${STATE.p4.keys[0]} ${STATE.p4.keys[1]} ${STATE.p4.keys[2]} ${STATE.p4.keys[3]}`;
+}
+
+function resetP4Escape(){
+  const inputs = document.querySelectorAll(".p4");
+  inputs.forEach(i=>{
+    i.value = "";
+    i.classList.remove("is-right","is-wrong");
+  });
+
+  STATE.p4.keys = ["_","_","_","_"];
+  updateP4Out();
+
+  STATE.done.p4C = false;
+  setBadge("badgeP4C", false);
+
+  document.getElementById("p4FinalCode").value = "";
+  document.getElementById("p4FinalMsg").innerText = "";
+}
+
+function checkP4Escape(){
+  const inputs = [...document.querySelectorAll(".p4")];
+
+  const letters = ["F","A","L","G"];
+  let okCount = 0;
+
+  inputs.forEach((input, idx)=>{
+    const right = normLow(input.dataset.right);
+    const val   = normLow(input.value);
+
+    input.classList.remove("is-right","is-wrong");
+
+    if(val === right){
+      input.classList.add("is-right");
+      input.value = right;
+      STATE.p4.keys[idx] = letters[idx];
+      okCount++;
+    }else{
+      input.classList.add("is-wrong");
+      STATE.p4.keys[idx] = "_";
+    }
+  });
+
+  updateP4Out();
+
+  if(okCount === 4){
+    STATE.done.p4C = true;
+    setBadge("badgeP4C", true);
+    alert("✅ Desafios corretos! Agora digite o código.");
+  }else{
+    alert("❌ Ainda há erros. Corrija e verifique novamente.");
+  }
+}
+
+function checkP4FinalCode(){
+  const val = normUp(document.getElementById("p4FinalCode").value).replace(/\s+/g,"");
+  const msg = document.getElementById("p4FinalMsg");
+
+  const formed = STATE.p4.keys.join("").replaceAll("_","");
+  if(formed.length !== 4){
+    msg.innerText = "⚠️ Primeiro libere as 4 letras (C1–C4).";
+    return;
+  }
+
+  if(val !== STATE.p4.final){
+    msg.innerText = "❌ Código errado. Dica: é o início do nome Falange.";
+    document.getElementById("p4FinalCode").value = "";
+    return;
+  }
+
+  msg.innerText = "✅ Código correto! Escape concluído.";
+  STATE.done.p4C = true;
+  setBadge("badgeP4C", true);
+
+  tryFinishP4(false);
+}
+
+/* =========================================================
+   [INÍCIO] J) P4 — REVISÃO (MCQ)
+========================================================= */
+function checkMcqP4(){
+  const chosen = document.querySelector(`input[name="p4q"]:checked`);
+  const msg = document.getElementById("p4mcqMsg");
+
+  if(!chosen){
+    msg.innerText = "⚠️ Marque uma opção.";
+    msg.style.color = "#111";
+    return;
+  }
+
+  if(chosen.value === "A"){
+    msg.innerText = "✅ Certo!";
+    msg.style.color = "#111";
+    STATE.done.p4D = true;
+    setBadge("badgeP4D", true);
+  }else{
+    msg.innerText = "❌ Tente de novo.";
+    msg.style.color = "#111";
+  }
+}
+
+/* =========================================================
+   [INÍCIO] K) CONCLUIR P4 (Escape + Revisão)
+========================================================= */
+function tryFinishP4(showAlerts){
+  if(STATE.done.p4C && STATE.done.p4D){
+    STATE.done.p4 = true;
+    setBadge("badgeP4", true);
+    if(showAlerts) alert("🏁 Aula 10 concluída! Certificado liberado.");
+    if(isAllDone()) openCertificate();
+  }else{
+    if(showAlerts) alert("⚠️ Falta concluir: Escape e/ou Revisão.");
+  }
+}
+
+/* =========================================================
+   [INÍCIO] L) SNAKE FALANGE — POSSESSIVOS
+   Regras:
+   - Come o alvo correto → +1 ponto e avança rodada
+   - Come errado / parede / corpo → RESET TOTAL (Regra Falange)
+========================================================= */
+const SNAKE = {
+  running:false,
+  timer:null,
+
+  speedMs: 180,
+  goalRounds: 10,
+  round: 1,
+  score: 0,
+
+  grid: 20,
+  dir: {x:1,y:0},
+  nextDir: {x:1,y:0},
+
+  snake: [{x:5,y:6},{x:4,y:6},{x:3,y:6}],
+  foods: [],
+  target: null, // { w:"mis", t:"ANTES" }
+
+  pool: [
+    /* ===== ANTES DEL SUSTANTIVO ===== */
+    { w:"mi",   t:"ANTES" },
+    { w:"mis",  t:"ANTES" },
+    { w:"tu",   t:"ANTES" },
+    { w:"tus",  t:"ANTES" },
+    { w:"su",   t:"ANTES" },
+    { w:"sus",  t:"ANTES" },
+    { w:"nuestro",  t:"ANTES" },
+    { w:"nuestra",  t:"ANTES" },
+    { w:"nuestros", t:"ANTES" },
+    { w:"nuestras", t:"ANTES" },
+    { w:"vuestro",  t:"ANTES" },
+    { w:"vuestra",  t:"ANTES" },
+    { w:"vuestros", t:"ANTES" },
+    { w:"vuestras", t:"ANTES" },
+
+    /* ===== DESPUÉS DEL SUSTANTIVO ===== */
+    { w:"mío",   t:"DESPUÉS" },
+    { w:"mía",   t:"DESPUÉS" },
+    { w:"míos",  t:"DESPUÉS" },
+    { w:"mías",  t:"DESPUÉS" },
+
+    { w:"tuyo",  t:"DESPUÉS" },
+    { w:"tuya",  t:"DESPUÉS" },
+    { w:"tuyos", t:"DESPUÉS" },
+    { w:"tuyas", t:"DESPUÉS" },
+
+    { w:"suyo",  t:"DESPUÉS" },
+    { w:"suya",  t:"DESPUÉS" },
+    { w:"suyos", t:"DESPUÉS" },
+    { w:"suyas", t:"DESPUÉS" },
+
+    { w:"nuestro",  t:"DESPUÉS" },
+    { w:"nuestra",  t:"DESPUÉS" },
+    { w:"nuestros", t:"DESPUÉS" },
+    { w:"nuestras", t:"DESPUÉS" },
+
+    { w:"vuestro",  t:"DESPUÉS" },
+    { w:"vuestra",  t:"DESPUÉS" },
+    { w:"vuestros", t:"DESPUÉS" },
+    { w:"vuestras", t:"DESPUÉS" }
+  ]
+};
+
+function snakeCanvas(){ return document.getElementById("snakeCanvas"); }
+function snakeCtx(){ return snakeCanvas().getContext("2d"); }
+function snakeCols(){ return Math.floor(snakeCanvas().width / SNAKE.grid); }
+function snakeRows(){ return Math.floor(snakeCanvas().height / SNAKE.grid); }
+
+function snakeUpdateHud(){
+  const el = document.getElementById("snakeHud");
+  if(!el) return;
+  const alvo = SNAKE.target ? `${SNAKE.target.w.toUpperCase()} <span style="opacity:.85;">(${SNAKE.target.t})</span>` : "—";
+  el.innerHTML = `Rodada ${SNAKE.round}/${SNAKE.goalRounds} • COMER: <b>${alvo}</b> • Pontos: <b>${SNAKE.score}</b>`;
+}
+
+/* Mobile pad: aparece via CSS em telas pequenas, mas aqui garantimos em load também */
+function snakeInitPad(){
+  const isSmall = window.matchMedia && window.matchMedia("(max-width: 980px)").matches;
+  const pad = document.getElementById("snakePad");
+  if(pad) pad.style.display = isSmall ? "flex" : "none";
+}
+window.addEventListener("resize", snakeInitPad);
+
+/* Teclado */
+window.addEventListener("keydown",(e)=>{
+  const k = e.key.toLowerCase();
+  if(k==="arrowup" || k==="w") snakeTurn("U");
+  if(k==="arrowdown" || k==="s") snakeTurn("D");
+  if(k==="arrowleft" || k==="a") snakeTurn("L");
+  if(k==="arrowright" || k==="d") snakeTurn("R");
+});
+
+function snakeTurn(dir){
+  const d = SNAKE.dir;
+  if(dir==="U" && d.y===0) SNAKE.nextDir = {x:0,y:-1};
+  if(dir==="D" && d.y===0) SNAKE.nextDir = {x:0,y: 1};
+  if(dir==="L" && d.x===0) SNAKE.nextDir = {x:-1,y:0};
+  if(dir==="R" && d.x===0) SNAKE.nextDir = {x: 1,y:0};
+}
+
+/* Iniciar / pausar / reset */
+function snakeStart(){
+  if(SNAKE.running) return;
+  SNAKE.running = true;
+
+  /* ✅ CORRIGIDO: usa SNAKE.target (não existe targetText) */
+  if(!SNAKE.target) snakeNewRound();
+
+  SNAKE.timer = setInterval(snakeTick, SNAKE.speedMs);
+}
+
+function snakePause(){
+  SNAKE.running = false;
+  if(SNAKE.timer){ clearInterval(SNAKE.timer); SNAKE.timer=null; }
+}
+
+function snakeResetAll(){
+  snakePause();
+  SNAKE.round = 1;
+  SNAKE.score = 0;
+
+  SNAKE.dir = {x:1,y:0};
+  SNAKE.nextDir = {x:1,y:0};
+
+  SNAKE.snake = [{x:5,y:6},{x:4,y:6},{x:3,y:6}];
+  SNAKE.foods = [];
+  SNAKE.target = null;
+
+  /* Progresso da Página 3 */
+  STATE.done.p3 = false;
+  setBadge("badgeP3", false);
+
+  snakeDraw();
+  snakeUpdateHud();
+}
+
+/* Nova rodada: cria alvo + 5 distratores */
+function snakeNewRound(){
+  SNAKE.target = SNAKE.pool[Math.floor(Math.random()*SNAKE.pool.length)];
+
+  const distractors = [];
+  while(distractors.length < 5){
+    const pick = SNAKE.pool[Math.floor(Math.random()*SNAKE.pool.length)];
+    if(pick.w !== SNAKE.target.w && !distractors.some(d=>d.w===pick.w)) distractors.push(pick);
+  }
+
+  const all = [
+    { text:SNAKE.target.w, isTarget:true },
+    ...distractors.map(p=>({ text:p.w, isTarget:false }))
+  ];
+
+  /* posiciona comidas */
+  SNAKE.foods = [];
+  all.forEach(item=>{
+    const pos = snakeRandPos();
+    SNAKE.foods.push({ ...pos, ...item });
+  });
+
+  snakeUpdateHud();
+  snakeDraw();
+}
+
+/* Posição aleatória que não colida com cobra/comida */
+function snakeRandPos(){
+  const cols = snakeCols(), rows = snakeRows();
+  while(true){
+    const pos = { x: Math.floor(Math.random()*cols), y: Math.floor(Math.random()*rows) };
+
+    const hitSnake = SNAKE.snake.some(s=>s.x===pos.x && s.y===pos.y);
+    if(hitSnake) continue;
+
+    const hitFood = SNAKE.foods.some(f=>f.x===pos.x && f.y===pos.y);
+    if(hitFood) continue;
+
+    return pos;
+  }
+}
+
+/* Tick do jogo */
+function snakeTick(){
+  SNAKE.dir = {...SNAKE.nextDir};
+
+  const head = SNAKE.snake[0];
+  const newHead = { x: head.x + SNAKE.dir.x, y: head.y + SNAKE.dir.y };
+
+  /* parede -> reset total */
+  if(newHead.x < 0 || newHead.y < 0 || newHead.x >= snakeCols() || newHead.y >= snakeRows()){
+    alert("❌ Bateu na parede. Regra Falange: reinicia do zero.");
+    snakeResetAll();
+    return;
+  }
+
+  /* corpo -> reset */
+  if(SNAKE.snake.some((s,i)=> i>0 && s.x===newHead.x && s.y===newHead.y)){
+    alert("❌ Bateu no corpo. Regra Falange: reinicia do zero.");
+    snakeResetAll();
+    return;
+  }
+
+  /* anda */
+  SNAKE.snake.unshift(newHead);
+
+  /* come algo? */
+  const idxFood = SNAKE.foods.findIndex(f=>f.x===newHead.x && f.y===newHead.y);
+  if(idxFood >= 0){
+    const food = SNAKE.foods[idxFood];
+
+    if(!food.isTarget){
+      alert(`❌ Comeu "${food.text.toUpperCase()}". Era "${SNAKE.target.w.toUpperCase()}". Reinicia!`);
+      snakeResetAll();
+      return;
+    }
+
+    /* acertou alvo */
+    SNAKE.score++;
+
+    /* vitória? */
+    if(SNAKE.round >= SNAKE.goalRounds){
+      snakePause();
+      STATE.done.p3 = true;
+      setBadge("badgeP3", true);
+      alert("🏁 Parabéns! Você completou o Snake (Página 3).");
+      snakeDraw();
+      snakeUpdateHud();
+      return;
+    }
+
+    /* próxima rodada */
+    SNAKE.round++;
+    snakeNewRound();
+    return;
+  }
+
+  /* não comeu -> tamanho normal */
+  SNAKE.snake.pop();
+
+  snakeDraw();
+  snakeUpdateHud();
+}
+
+/* Render do canvas */
+function snakeDraw(){
+  const c = snakeCanvas();
+  if(!c) return;
+  const ctx = snakeCtx();
+  ctx.clearRect(0,0,c.width,c.height);
+
+  /* grade leve */
+  ctx.save();
+  ctx.globalAlpha = 0.08;
+  for(let x=0; x<c.width; x+=SNAKE.grid){
+    ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,c.height); ctx.stroke();
+  }
+  for(let y=0; y<c.height; y+=SNAKE.grid){
+    ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(c.width,y); ctx.stroke();
+  }
+  ctx.restore();
+
+  /* comidas (texto) */
+  ctx.font = "bold 16px Arial";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  SNAKE.foods.forEach(f=>{
+    const px = f.x*SNAKE.grid + SNAKE.grid/2;
+    const py = f.y*SNAKE.grid + SNAKE.grid/2;
+
+    ctx.strokeRect(f.x*SNAKE.grid+2, f.y*SNAKE.grid+2, SNAKE.grid-4, SNAKE.grid-4);
+    ctx.fillText(f.text, px, py);
+  });
+
+  /* cobra */
+  SNAKE.snake.forEach((s,i)=>{
+    const x = s.x*SNAKE.grid;
+    const y = s.y*SNAKE.grid;
+
+    ctx.fillRect(x+2,y+2,SNAKE.grid-4,SNAKE.grid-4);
+
+    /* olho da cabeça */
+    if(i===0){
+      ctx.clearRect(x+SNAKE.grid-9, y+6, 3, 3);
+    }
+  });
+}
+
+/* =========================================================
+   [INÍCIO] M) INIT GERAL (1 vez)
+========================================================= */
+function initAll(){
+  initP2Audio();
+  updateP4Out();
+  snakeInitPad();
+  snakeResetAll(); /* desenha estado inicial do snake */
+}
+initAll();
+/* =========================================================
+   PATCH MOBILE — Snake Falange
+   - Mostra pad sempre em telas pequenas
+   - Atualiza ao girar tela
+   - Bloqueia scroll enquanto jogo roda
+========================================================= */
+
+function snakeUpdatePadVisibility(){
+  const pad = document.getElementById("snakePad");
+  if(!pad) return;
+
+  const isMobile = window.matchMedia("(max-width: 1024px)").matches;
+  pad.style.display = isMobile ? "flex" : "none";
+}
+
+// Atualiza ao carregar
+window.addEventListener("load", snakeUpdatePadVisibility);
+
+// Atualiza ao redimensionar
+window.addEventListener("resize", snakeUpdatePadVisibility);
+
+// Atualiza ao girar tela (iPhone/iPad)
+window.addEventListener("orientationchange", snakeUpdatePadVisibility);
+
+
+/* ===== BLOQUEIO DE SCROLL DURANTE O JOGO ===== */
+
+let snakeScrollBlocker = function(e){
+  if(SNAKE.running){
+    e.preventDefault();
+  }
+};
+
+// Bloqueia toque
+document.addEventListener("touchmove", snakeScrollBlocker, { passive:false });
+
+// Bloqueia scroll com teclado
+document.addEventListener("keydown", function(e){
+  if(SNAKE.running){
+    const keys = ["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"," "];
+    if(keys.includes(e.key)){
+      e.preventDefault();
+    }
+  }
+});
+</script>
+
+</body>
+</html>
