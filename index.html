@@ -7,23 +7,20 @@
          P1: Imagem grande + modal explicativo (clique)
          P2: Áudio guiado (1 por vez) + Completa (1 erro = reset total)
          P3: Jogo SNAKE — “come” o posesivo correto (10 rodadas)
-         P4: Escape Room (4 respostas → código) + Revisão + Certificado
-
-       ✅ AJUSTES DESTA VERSÃO (PEDIDOS AGORA):
-         1) Ainda cortava no celular:
-            - Pad (setas) AGORA fica “DENTRO” da área do jogo (sobre o canvas),
-              fixo no canto inferior esquerdo do jogo.
-         2) Botões INICIAR/PAUSAR/REINICIAR/AJUDA foram “subidos”:
-            - Agora ficam ACIMA do canvas, logo após o HUD.
-         3) Código reescrito e organizado (CSS / HTML / JS) com comentários.
+             ✅ FIX DEFINITIVO MOBILE:
+               - HUD (dicas/alvo/rodada/pontos) sempre visível
+               - Botões de direção DENTRO do campo do jogo (overlay no canvas)
+               - Controles (iniciar/pausar/reiniciar/ajuda) “sobem” e ficam na visão
+               - Funciona em qualquer orientação (retrato/paisagem) e navegador
+         P4: Escape Room + Revisão + Certificado
   ========================================================== -->
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Espanhol — Aula 10 (Premium Falange): Adjetivos Posesivos</title>
 
   <style>
   /* =========================================================
-     [CSS 0] DESIGN SYSTEM (Variáveis Falange)
+     [INÍCIO] 0) VARIÁVEIS (Design System Falange)
   ========================================================== */
   :root{
     --paper:#f3f4df;
@@ -40,7 +37,7 @@
   *{ box-sizing:border-box; }
 
   /* =========================================================
-     [CSS 1] BASE / ANTI-CORTE GLOBAL
+     [INÍCIO] 1) BODY / WRAP
   ========================================================== */
   html, body{ max-width:100%; }
   body{
@@ -56,19 +53,19 @@
     overflow-x:auto;
     overflow-y:auto;
   }
-  img, video, canvas{ max-width:100%; height:auto; }
-
   .wrap{
     display:flex;
     flex-direction:column;
     align-items:center;
     gap:14px;
     padding-bottom:18px;
+    width:100%;
   }
 
   /* =========================================================
-     [CSS 2] PÁGINA (A4 LANDSCAPE) + ÁREA ÚTIL
-     OBS: Mantido seu tamanho (297mm x 340mm).
+     [INÍCIO] 2) PÁGINA (A4 LANDSCAPE) + ÁREA ÚTIL
+     - Desktop: mantém seu tamanho original
+     - Mobile: vira “responsivo” sem cortar (height auto)
   ========================================================== */
   .page{
     width:297mm;
@@ -88,7 +85,7 @@
     bottom:18mm;
   }
 
-  /* Fundo opcional */
+  /* FUNDO opcional */
   .content::before{
     content:"";
     position:absolute;
@@ -102,7 +99,7 @@
   .content > *{ position:relative; z-index:1; }
 
   /* =========================================================
-     [CSS 3] CABEÇALHO
+     [INÍCIO] 3) CABEÇALHO (padrão)
   ========================================================== */
   .titleRow{
     margin-top:6px;
@@ -138,7 +135,7 @@
   }
 
   /* =========================================================
-     [CSS 4] COLUNAS / CARDS / BOTÕES
+     [INÍCIO] 4) COLUNAS / CARDS
   ========================================================== */
   .cols{
     margin-top:8px;
@@ -193,7 +190,7 @@
   }
 
   /* =========================================================
-     [CSS 5] P1 — IMAGEM GRANDE (clicável)
+     [INÍCIO] 5) IMAGEM GRANDE (P1)
   ========================================================== */
   .bigImgWrap{
     margin-top:10px;
@@ -220,7 +217,7 @@
   }
 
   /* =========================================================
-     [CSS 6] INPUTS / VALIDAÇÃO (padrão Falange)
+     [INÍCIO] 6) INPUTS / VALIDAÇÃO
   ========================================================== */
   .dialogue{ font-size:10.5pt; line-height:1.55; color:#111; }
   .dialogue b{ font-weight:900; }
@@ -255,7 +252,7 @@
   }
 
   /* =========================================================
-     [CSS 7] BADGE (progresso premium)
+     [INÍCIO] 7) BADGES
   ========================================================== */
   .doneBadge{
     display:none;
@@ -270,7 +267,7 @@
   }
 
   /* =========================================================
-     [CSS 8] MCQ (Revisão P4)
+     [INÍCIO] 8) MCQ (P4)
   ========================================================== */
   .mcq{
     margin-top:10px;
@@ -326,7 +323,7 @@
   }
 
   /* =========================================================
-     [CSS 9] REGISTRO + CERTIFICADO
+     [INÍCIO] 9) REGISTRO + CERTIFICADO
   ========================================================== */
   #studentRegister{
     width: min(520px, calc(100vw - 24px));
@@ -383,7 +380,6 @@
     color:#111;
   }
 
-  /* Overlay certificado */
   #certOverlay{
     position:fixed;
     inset:0;
@@ -456,7 +452,7 @@
   }
 
   /* =========================================================
-     [CSS 10] MODAL EXPLICATIVO
+     [INÍCIO] 10) MODAL EXPLICATIVO
   ========================================================== */
   #explainOverlay{
     position: fixed;
@@ -505,9 +501,16 @@
     line-height:1.45;
     text-align: left;
   }
+  #explainBtns{
+    margin-top: 14px;
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
 
   /* =========================================================
-     [CSS 11] P2 — ÁUDIO
+     [INÍCIO] 11) P2 — ÁUDIO
   ========================================================== */
   .p2AudioBar{
     display:flex;
@@ -569,7 +572,11 @@
   }
   .p2Dot.on{ background: rgba(58,160,230,.90); border-color: rgba(58,160,230,.90); }
   .p2Dot.done{ background: rgba(46,204,113,.90); border-color: rgba(46,204,113,.90); }
-  .p2AudioText{ font-weight:900; font-size:10pt; line-height:1.25; }
+  .p2AudioText{
+    font-weight:900;
+    font-size:10pt;
+    line-height:1.25;
+  }
   .p2SmallHint{
     margin-top:10px;
     font-size:9pt;
@@ -582,76 +589,113 @@
   }
 
   /* =========================================================
-     [CSS 12] P3 — SNAKE (HUD + CANVAS + PAD DENTRO)
+     [INÍCIO] 12) P3 — SNAKE (HUD+CONTROLS SEMPRE VISÍVEIS)
+     ✅ O “campo do jogador” é o .snakeViewport.
+     - Dentro dele, HUD + botões ficam sticky (não somem)
+     - Canvas é responsivo
+     - Botões de direção ficam DENTRO do canvas (overlay canto inferior esquerdo)
   ========================================================== */
-  .snakeHud{
+  .snakeViewport{
     margin-top:10px;
+    border:2px dashed rgba(0,0,0,.22);
+    border-radius:14px;
+    background: rgba(58,160,230,.06);
+    padding:10px;
+  }
+
+  /* HUD “dicas/alvo” sempre no campo de visão */
+  .snakeHud{
     font-weight:900;
     text-align:center;
     padding:10px 12px;
     border-radius:14px;
-    border:2px dashed rgba(0,0,0,.22);
-    background: rgba(58,160,230,.08);
+    border:2px solid rgba(0,0,0,.18);
+    background: rgba(255,255,255,.92);
+    position: sticky;
+    top: 8px;
+    z-index: 20;
   }
 
-  /* ✅ “PALCO” do snake: aqui fica o canvas + botões por cima */
+  /* Controles (Iniciar/Pausar/etc) sempre no campo de visão */
+  .snakeTopControls{
+    margin-top:10px;
+    position: sticky;
+    top: 72px;
+    z-index: 20;
+    background: transparent;
+  }
+  .snakeTopControls .controls{
+    margin-top:0;
+    background: rgba(255,255,255,.92);
+    border:2px solid rgba(0,0,0,.18);
+    border-radius:14px;
+    padding:8px;
+  }
+
+  /* Palco do canvas (relativo para overlay do pad) */
   .snakeStage{
     margin-top:10px;
     position:relative;
     border:3px solid rgba(0,0,0,.65);
     border-radius:12px;
     background:#fff;
-    overflow:hidden; /* garante que o pad não “vaze” */
+    overflow:hidden;
+    touch-action: none; /* IMPORTANT: evita scroll/zoom no canvas */
   }
 
-  /* Canvas desenha no tamanho interno (width/height no HTML)
-     CSS só faz ele se ajustar na tela (sem cortar) */
+  /* Canvas responsivo */
   #snakeCanvas{
     display:block;
     width:100%;
     height:auto;
+    background:#fff;
   }
 
-  /* ✅ PAD DENTRO DO “PALCO”, canto inferior esquerdo */
+  /* ===== PAD (botões dentro do canvas) ===== */
   #snakePad{
     position:absolute;
     left:10px;
     bottom:10px;
-    z-index:50;
-
-    display:none;           /* aparece só em telas touch/mobile */
+    z-index:30;
+    display:none; /* JS liga automaticamente em dispositivos com toque */
     gap:8px;
     align-items:center;
+    justify-content:center;
     flex-wrap:wrap;
 
-    padding:8px 10px;
+    padding:10px;
     border-radius:14px;
-    background: rgba(255,255,255,.92);
-    border:2px solid rgba(0,0,0,.22);
+    background: rgba(255,255,255,.86);
+    border: 2px solid rgba(0,0,0,.20);
     backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    touch-action: none;
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
   }
   .snakeMidRow{ display:flex; gap:8px; }
 
   .snakeBtn{
-    min-width: 52px;
-    height: 50px;
+    min-width: 56px;
+    height: 54px;
     border-radius: 14px;
     border: 2px solid rgba(0,0,0,.35);
     font-weight: 900;
-    font-size: 16pt;
+    font-size: 18pt;
     cursor: pointer;
     user-select:none;
+    touch-action:none;
     -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
   }
-  .snakeUp{    background:#22c55e; color:#fff; }
-  .snakeLeft{  background:#3b82f6; color:#fff; }
+  .snakeUp   { background:#22c55e; color:#fff; }
+  .snakeLeft { background:#3b82f6; color:#fff; }
   .snakeRight{ background:#f59e0b; color:#111; }
-  .snakeDown{  background:#ef4444; color:#fff; }
+  .snakeDown { background:#ef4444; color:#fff; }
+
   .snakeBtn:active{ transform: scale(0.98); filter: brightness(0.95); }
 
   /* =========================================================
-     [CSS 13] PRINT: só o certificado
+     [INÍCIO] 13) PRINT: só o certificado
   ========================================================== */
   @media print{
     *{ -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -669,12 +713,12 @@
   }
 
   /* =========================================================
-     [CSS 14] RESPONSIVO + BAIXA VISÃO (ANTI-CORTE)
+     [INÍCIO] 14) MOBILE / BAIXA VISÃO (ANTI-CORTE)
   ========================================================== */
+  img, video, canvas{ max-width:100%; height:auto; }
+
   @media (max-width: 980px){
     body{ padding:8px; overflow-x:auto; overflow-y:auto; }
-    .wrap{ width:100%; align-items:center; }
-
     .page{
       width: min(297mm, 98vw);
       max-width: 98vw;
@@ -690,18 +734,11 @@
     .cols{ grid-template-columns:1fr; }
     .ctrlBtn{ padding:10px 12px; font-size:12pt; }
 
-    /* ✅ pad aparece no mobile */
-    #snakePad{ display:flex; }
+    /* Em telas pequenas, sobe ainda mais HUD + controles */
+    .snakeHud{ top: 6px; }
+    .snakeTopControls{ top: 68px; }
   }
 
-  /* ✅ paisagem com pouca altura (celular deitado):
-     - reduz um pouco o “palco” para caber melhor */
-  @media (orientation: landscape) and (max-height: 520px){
-    .snakeStage{ max-height: 52vh; } /* ajuda a caber HUD + controles */
-    #snakePad{ display:flex !important; }
-  }
-
-  /* Baixa visão */
   body.lowVision{
     font-size: 135%;
     overflow-x:auto;
@@ -726,10 +763,10 @@
   body.lowVision .ctrlBtn{ font-size: 12.5pt; padding:12px 14px; }
   body.lowVision .blank{ height: 36px; font-size: 14pt; }
 
-  body.lowVision .snakeBtn{
-    min-width: 64px;
-    height: 60px;
-    font-size: 18pt;
+  body.lowVision #snakePad .snakeBtn{
+    min-width: 66px;
+    height: 62px;
+    font-size: 20pt;
   }
   </style>
 </head>
@@ -737,7 +774,7 @@
 <body>
 
 <!-- =========================================================
-     [HTML] ♿ BOTÃO FLUTUANTE — BAIXA VISÃO
+     ♿ BOTÃO FLUTUANTE — BAIXA VISÃO (sempre visível)
 ========================================================= -->
 <div id="a11yFab" style="
   position:fixed; right:12px; bottom:12px; z-index:99999;
@@ -750,7 +787,7 @@
 </div>
 
 <!-- =====================================================
-     [HTML] A) REGISTRO DO ALUNO
+     1) REGISTRO DO ALUNO
 ===================================================== -->
 <div id="studentRegister" aria-label="Registro do aluno">
   <div class="regTitle">REGISTRO DO ALUNO</div>
@@ -775,7 +812,7 @@
 </div>
 
 <!-- =====================================================
-     [HTML] B) CERTIFICADO
+     2) CERTIFICADO
 ===================================================== -->
 <div id="certOverlay" aria-label="Certificado de conclusão">
   <div id="certCard">
@@ -783,7 +820,9 @@
       <div id="certTitle">Certificado de Conclusão</div>
       <div id="certSub">Espanhol — Aula 10 (Adjetivos Posesivos) • Premium Falange</div>
 
-      <div style="margin-top:10px; font-size:11pt; color:#111;">Certificamos que</div>
+      <div style="margin-top:10px; font-size:11pt; color:#111;">
+        Certificamos que
+      </div>
       <div id="certName">—</div>
 
       <div id="certMeta">
@@ -802,7 +841,7 @@
 </div>
 
 <!-- =====================================================
-     [HTML] C) MODAL EXPLICATIVO
+     3) MODAL EXPLICATIVO
 ===================================================== -->
 <div id="explainOverlay" aria-label="Explicação">
   <div id="explainCard">
@@ -810,7 +849,8 @@
       <div id="explainTitle">Explicação</div>
       <div id="explainES">—</div>
       <div id="explainPT">—</div>
-      <div id="explainBtns" style="margin-top:14px; display:flex; justify-content:center;">
+
+      <div id="explainBtns">
         <button class="certBtn" type="button" onclick="closeExplain()">FECHAR</button>
       </div>
     </div>
@@ -818,12 +858,12 @@
 </div>
 
 <!-- =====================================================
-     [HTML] D) LIVRO (4 páginas) — começa oculto
+     4) “LIVRO” (4 páginas) — começa oculto
 ===================================================== -->
 <div class="wrap" id="book" style="display:none;">
 
   <!-- =====================================================
-       PÁGINA 1 — IMAGEM + MODAL
+       ✅ PÁGINA 1 — IMAGEM GRANDE + MODAL
   ====================================================== -->
   <section class="page" aria-label="Página 1 — Conteúdo (Posesivos)">
     <div class="content">
@@ -834,7 +874,9 @@
         <div class="bncc" style="padding-right:2mm;">ESPAÑOL</div>
       </div>
 
-      <div class="bars"><div class="bar"></div><div style="width:12px;"></div><div class="bar"></div></div>
+      <div class="bars">
+        <div class="bar"></div><div style="width:12px;"></div><div class="bar"></div>
+      </div>
 
       <div class="cols oneCol">
         <div class="card">
@@ -869,7 +911,7 @@
   </section>
 
   <!-- =====================================================
-       PÁGINA 2 — ÁUDIO + COMPLETA (RESET TOTAL SE ERRAR)
+       ✅ PÁGINA 2 — ÁUDIO + COMPLETA (RESET TOTAL SE ERRAR)
   ====================================================== -->
   <section class="page" aria-label="Página 2 — Áudio + Completa (Posesivos)">
     <div class="content">
@@ -880,11 +922,12 @@
         <div class="bncc" style="padding-right:2mm;">PÁGINA 2</div>
       </div>
 
-      <div class="bars"><div class="bar"></div><div style="width:12px;"></div><div class="bar"></div></div>
+      <div class="bars">
+        <div class="bar"></div><div style="width:12px;"></div><div class="bar"></div>
+      </div>
 
       <div class="cols">
 
-        <!-- ÁUDIO -->
         <div>
           <div class="card">
             <div class="cardTitle">🎧 Escucha (1 por vez)</div>
@@ -899,6 +942,7 @@
 
             <div class="p2AudioBar">
               <div class="p2Step" id="p2StepText">Paso 1 de 8</div>
+
               <div class="p2AudioBtns">
                 <button class="p2AudioBtn p2AudioBtnPrimary" type="button" onclick="p2PlayAudio()">▶️ Escuchar</button>
                 <button class="p2AudioBtn" type="button" onclick="p2Restart()">🔄 Reiniciar</button>
@@ -915,7 +959,6 @@
           </div>
         </div>
 
-        <!-- COMPLETA -->
         <div>
           <div class="card">
             <div class="cardTitle">🧩 Completa y verifica</div>
@@ -951,7 +994,8 @@
   </section>
 
   <!-- =====================================================
-       PÁGINA 3 — SNAKE (PAD DENTRO DO CANVAS + CONTROLES SUBIDOS)
+       ✅ PÁGINA 3 — SNAKE (10 rodadas)
+       ✅ REESCRITO para NÃO SUMIR NADA no mobile
   ====================================================== -->
   <section class="page" aria-label="Página 3 — Snake (Posesivos)">
     <div class="content">
@@ -962,7 +1006,9 @@
         <div class="bncc" style="padding-right:2mm;">PÁGINA 3</div>
       </div>
 
-      <div class="bars"><div class="bar"></div><div style="width:12px;"></div><div class="bar"></div></div>
+      <div class="bars">
+        <div class="bar"></div><div style="width:12px;"></div><div class="bar"></div>
+      </div>
 
       <div class="cols oneCol">
         <div class="card">
@@ -973,31 +1019,39 @@
             <br>⚠️ Errou 1 vez → reinicia do zero (Regra Falange).
           </p>
 
-          <div class="snakeHud" id="snakeHud">Rodada 1/10 • COMER: — • Pontos: 0</div>
+          <!-- ✅ Campo de visualização do jogador -->
+          <div class="snakeViewport" id="snakeViewport">
 
-          <!-- ✅ CONTROLES “SUBIDOS” (AGORA ACIMA DO CANVAS) -->
-          <div class="controls" style="margin-top:10px;">
-            <button class="ctrlBtn" type="button" onclick="snakeStart()">▶️ INICIAR</button>
-            <button class="ctrlBtn" type="button" onclick="snakePause()">⏸️ PAUSAR</button>
-            <button class="ctrlBtn" type="button" onclick="snakeResetAll()">🔄 REINICIAR</button>
-            <button class="ctrlBtn" type="button"
-              onclick="openExplain('🎮 Como jogar','<div style=&quot;text-align:left;&quot;>Use as setas do teclado (ou W A S D).<br><br><b>Objetivo:</b> comer a palavra do <b>ALVO</b>.<br><b>Se comer errado</b> ou bater na parede/corpo → reinicia tudo.<br><br>Complete <b>10 rodadas</b> para concluir a Página 3.</div>')">
-              ℹ️ AJUDA
-            </button>
-          </div>
+            <!-- ✅ HUD (dicas/alvo/rodada/pontos) sempre visível -->
+            <div class="snakeHud" id="snakeHud">Rodada 1/10 • COMER: — • Pontos: 0</div>
 
-          <!-- ✅ PALCO DO SNAKE (canvas + setas por cima, dentro) -->
-          <div class="snakeStage" aria-label="Área do jogo Snake">
-            <canvas id="snakeCanvas" width="900" height="360"></canvas>
-
-            <!-- ✅ PAD dentro do “palco”, canto inferior esquerdo -->
-            <div id="snakePad" aria-label="Controles do Snake (mobile)">
-              <button class="snakeBtn snakeUp" type="button" onclick="snakeTurn('U')">⬆️</button>
-              <div class="snakeMidRow">
-                <button class="snakeBtn snakeLeft" type="button" onclick="snakeTurn('L')">⬅️</button>
-                <button class="snakeBtn snakeRight" type="button" onclick="snakeTurn('R')">➡️</button>
+            <!-- ✅ Controles sempre visíveis -->
+            <div class="snakeTopControls">
+              <div class="controls">
+                <button class="ctrlBtn" type="button" onclick="snakeStart()">▶️ INICIAR</button>
+                <button class="ctrlBtn" type="button" onclick="snakePause()">⏸️ PAUSAR</button>
+                <button class="ctrlBtn" type="button" onclick="snakeResetAll()">🔄 REINICIAR</button>
+                <button class="ctrlBtn" type="button"
+                  onclick="openExplain('🎮 Como jogar','<div style=&quot;text-align:left;&quot;>Use as setas do teclado (ou W A S D).<br><br><b>Objetivo:</b> comer a palavra do <b>ALVO</b>.<br><b>Se comer errado</b> ou bater na parede/corpo → reinicia tudo.<br><br>Complete <b>10 rodadas</b> para concluir a Página 3.</div>')">
+                  ℹ️ AJUDA
+                </button>
               </div>
-              <button class="snakeBtn snakeDown" type="button" onclick="snakeTurn('D')">⬇️</button>
+            </div>
+
+            <!-- ✅ Palco do jogo -->
+            <div class="snakeStage" id="snakeStage">
+              <!-- Canvas base “virtual” (desenho) -->
+              <canvas id="snakeCanvas" width="900" height="360"></canvas>
+
+              <!-- ✅ Botões de direção DENTRO do campo do jogo (overlay canto inferior esquerdo) -->
+              <div id="snakePad" aria-label="Controles de direção (toque)">
+                <button class="snakeBtn snakeUp"   type="button" onpointerdown="snakeTurn('U')">⬆️</button>
+                <div class="snakeMidRow">
+                  <button class="snakeBtn snakeLeft"  type="button" onpointerdown="snakeTurn('L')">⬅️</button>
+                  <button class="snakeBtn snakeRight" type="button" onpointerdown="snakeTurn('R')">➡️</button>
+                </div>
+                <button class="snakeBtn snakeDown" type="button" onpointerdown="snakeTurn('D')">⬇️</button>
+              </div>
             </div>
           </div>
 
@@ -1014,7 +1068,7 @@
   </section>
 
   <!-- =====================================================
-       PÁGINA 4 — ESCAPE ROOM + REVISÃO + CERTIFICADO
+       ✅ PÁGINA 4 — ESCAPE + REVISÃO + CERTIFICADO
   ====================================================== -->
   <section class="page" aria-label="Página 4 — Escape Room (Posesivos)">
     <div class="content">
@@ -1025,11 +1079,12 @@
         <div class="bncc" style="padding-right:2mm;">PÁGINA 4</div>
       </div>
 
-      <div class="bars"><div class="bar"></div><div style="width:12px;"></div><div class="bar"></div></div>
+      <div class="bars">
+        <div class="bar"></div><div style="width:12px;"></div><div class="bar"></div>
+      </div>
 
       <div class="cols">
 
-        <!-- ESCAPE -->
         <div>
           <div class="card">
             <div class="cardTitle">C) 4 DESAFIOS = 1 CÓDIGO</div>
@@ -1086,7 +1141,6 @@
           </div>
         </div>
 
-        <!-- REVISÃO -->
         <div>
           <div class="card">
             <div class="cardTitle">D) REVISÃO FINAL (1 minuto)</div>
@@ -1133,7 +1187,7 @@
 
 <script>
 /* =========================================================
-   [JS A] ESTADO GLOBAL (progresso da Aula 10)
+   [INÍCIO] A) ESTADO GLOBAL
 ========================================================= */
 const STATE = {
   student: { name:"", turma:"", escola:"" },
@@ -1142,7 +1196,7 @@ const STATE = {
 };
 
 /* =========================================================
-   [JS B] UTILIDADES
+   [INÍCIO] B) UTILIDADES
 ========================================================= */
 function nowBR(){
   const d = new Date();
@@ -1166,24 +1220,18 @@ function normUp(s){ return String(s||"").trim().toUpperCase(); }
 function normLow(s){ return String(s||"").trim().toLowerCase().replace(/\s+/g," "); }
 
 /* =========================================================
-   [JS C] BAIXA VISÃO
+   [INÍCIO] C) BAIXA VISÃO
 ========================================================= */
-function toggleLowVision(){
-  document.body.classList.toggle("lowVision");
-  snakePadApplyVisibility();
-}
+function toggleLowVision(){ document.body.classList.toggle("lowVision"); }
 
 /* =========================================================
-   [JS D] REGISTRO / CERTIFICADO
+   [INÍCIO] D) REGISTRO / CERTIFICADO
 ========================================================= */
 function saveStudent(){
   const name = document.getElementById("studentName").value.trim();
   const turma = document.getElementById("studentClass").value.trim();
   const escola = document.getElementById("studentSchool").value.trim();
-  if(!name || !turma || !escola){
-    alert("Preencha NOME, TURMA e ESCOLA.");
-    return;
-  }
+  if(!name || !turma || !escola){ alert("Preencha NOME, TURMA e ESCOLA."); return; }
   STATE.student = { name, turma, escola };
   document.getElementById("studentRegister").style.display = "none";
   document.getElementById("book").style.display = "flex";
@@ -1201,15 +1249,12 @@ function openCertificate(){
 }
 function closeCertificate(){ document.getElementById("certOverlay").style.display = "none"; }
 function tryOpenCertificate(){
-  if(!isAllDone()){
-    alert("Ainda falta concluir atividades para liberar o certificado.");
-    return;
-  }
+  if(!isAllDone()){ alert("Ainda falta concluir atividades para liberar o certificado."); return; }
   openCertificate();
 }
 
 /* =========================================================
-   [JS E] MODAL EXPLICATIVO
+   [INÍCIO] E) MODAL EXPLICATIVO
 ========================================================= */
 function openExplain(es, pt){
   document.getElementById("explainES").innerHTML = es;
@@ -1219,7 +1264,7 @@ function openExplain(es, pt){
 function closeExplain(){ document.getElementById("explainOverlay").style.display = "none"; }
 
 /* =========================================================
-   [JS F] P1 — EXPLICAÇÃO POSSESSIVOS
+   [INÍCIO] F) P1 — MODAL EXPLICANDO POSSESSIVOS
 ========================================================= */
 function openPossessiveExplain(){
   openExplain(
@@ -1254,7 +1299,7 @@ function openPossessiveExplain(){
 }
 
 /* =========================================================
-   [JS G] CONCLUIR PÁGINAS
+   [INÍCIO] G) CONCLUIR PÁGINAS
 ========================================================= */
 function markDone(pageKey){
   STATE.done[pageKey] = true;
@@ -1268,7 +1313,7 @@ function markDone(pageKey){
 }
 
 /* =========================================================
-   [JS H] P2 — COMPLETA (1 erro = reset total)
+   [INÍCIO] H) P2 — COMPLETA (1 erro = reset total)
 ========================================================= */
 function resetP2(){
   const inputs = document.querySelectorAll(".p2");
@@ -1282,6 +1327,7 @@ function resetP2(){
 
   p2Restart();
 }
+
 function checkP2All(){
   const inputs = document.querySelectorAll(".p2");
 
@@ -1312,7 +1358,7 @@ function checkP2All(){
 }
 
 /* =========================================================
-   [JS H.1] P2 — ÁUDIO POR PASSOS
+   P2 — ÁUDIO POR PASSOS
 ========================================================= */
 const P2AUDIO = {
   idx: 0,
@@ -1334,6 +1380,7 @@ function initP2Audio(){
   p2RenderList();
   p2RenderStep();
 }
+
 function p2RenderList(){
   const list = document.getElementById("p2AudioList");
   if(!list) return;
@@ -1357,6 +1404,7 @@ function p2RenderList(){
     list.appendChild(row);
   });
 }
+
 function p2RenderStep(){
   const stepText = document.getElementById("p2StepText");
   const audio = document.getElementById("p2Audio");
@@ -1365,17 +1413,19 @@ function p2RenderStep(){
   if(stepText) stepText.textContent = `Paso ${P2AUDIO.idx + 1} de ${P2AUDIO.steps.length}`;
 
   if(audio){
-    audio.src = s.audioSrc; /* troque pelos seus mp3 reais */
+    audio.src = s.audioSrc;
     audio.load();
   }
   p2RenderList();
 }
+
 function p2PlayAudio(){
   const audio = document.getElementById("p2Audio");
   if(!audio) return;
   audio.currentTime = 0;
   audio.play().catch(()=>{});
 }
+
 function p2Restart(){
   P2AUDIO.idx = 0;
   P2AUDIO.done = new Array(P2AUDIO.steps.length).fill(false);
@@ -1387,10 +1437,12 @@ function p2Restart(){
   }
   p2RenderStep();
 }
+
 function p2MarkDoneStep(){
   P2AUDIO.done[P2AUDIO.idx] = true;
   p2RenderList();
 }
+
 function p2Next(){
   if(!P2AUDIO.done[P2AUDIO.idx]){
     alert("⚠️ Para avançar, conclua o passo atual: preencha e clique em VERIFICAR TUDO na coluna da direita.");
@@ -1405,13 +1457,14 @@ function p2Next(){
 }
 
 /* =========================================================
-   [JS I] P4 — ESCAPE ROOM
+   [INÍCIO] I) P4 — ESCAPE ROOM
 ========================================================= */
 function updateP4Out(){
   const out = document.getElementById("p4CodeOut");
   if(!out) return;
   out.innerText = `${STATE.p4.keys[0]} ${STATE.p4.keys[1]} ${STATE.p4.keys[2]} ${STATE.p4.keys[3]}`;
 }
+
 function resetP4Escape(){
   const inputs = document.querySelectorAll(".p4");
   inputs.forEach(i=>{
@@ -1428,6 +1481,7 @@ function resetP4Escape(){
   document.getElementById("p4FinalCode").value = "";
   document.getElementById("p4FinalMsg").innerText = "";
 }
+
 function checkP4Escape(){
   const inputs = [...document.querySelectorAll(".p4")];
   const letters = ["F","A","L","G"];
@@ -1460,6 +1514,7 @@ function checkP4Escape(){
     alert("❌ Ainda há erros. Corrija e verifique novamente.");
   }
 }
+
 function checkP4FinalCode(){
   const val = normUp(document.getElementById("p4FinalCode").value).replace(/\s+/g,"");
   const msg = document.getElementById("p4FinalMsg");
@@ -1484,7 +1539,7 @@ function checkP4FinalCode(){
 }
 
 /* =========================================================
-   [JS J] P4 — REVISÃO (MCQ)
+   [INÍCIO] J) P4 — REVISÃO (MCQ)
 ========================================================= */
 function checkMcqP4(){
   const chosen = document.querySelector(`input[name="p4q"]:checked`);
@@ -1508,7 +1563,7 @@ function checkMcqP4(){
 }
 
 /* =========================================================
-   [JS K] CONCLUIR P4
+   [INÍCIO] K) CONCLUIR P4 (Escape + Revisão)
 ========================================================= */
 function tryFinishP4(showAlerts){
   if(STATE.done.p4C && STATE.done.p4D){
@@ -1522,14 +1577,21 @@ function tryFinishP4(showAlerts){
 }
 
 /* =========================================================
-   [JS L] SNAKE — ENGINE
+   [INÍCIO] L) SNAKE FALANGE — POSSESSIVOS
+   ✅ FIX PRINCIPAL:
+   - PAD aparece em QUALQUER orientação se tiver toque
+   - Canvas responsivo sem quebrar grid
+   - Bloqueia scroll/zoom enquanto joga (mobile)
 ========================================================= */
 const SNAKE = {
   running:false,
   timer:null,
 
-  /* Velocidade: menor = mais rápido. Aumente para ficar mais lento. */
-  speedMs: 180,
+  /* =========================================================
+     ✅ AJUSTE A VELOCIDADE AQUI (quanto MENOR, mais rápido)
+     Ex.: 220 = mais lento / 160 = mais rápido
+  ========================================================== */
+  speedMs: 190,
 
   goalRounds: 10,
   round: 1,
@@ -1542,6 +1604,10 @@ const SNAKE = {
   snake: [{x:5,y:6},{x:4,y:6},{x:3,y:6}],
   foods: [],
   target: null,
+
+  /* canvas “virtual” (fixo) */
+  baseW: 900,
+  baseH: 360,
 
   pool: [
     { w:"mi",   t:"ANTES" }, { w:"mis",  t:"ANTES" },
@@ -1569,13 +1635,12 @@ const SNAKE = {
   ]
 };
 
-/* Canvas helpers */
 function snakeCanvas(){ return document.getElementById("snakeCanvas"); }
 function snakeCtx(){ return snakeCanvas().getContext("2d"); }
 function snakeCols(){ return Math.floor(snakeCanvas().width / SNAKE.grid); }
 function snakeRows(){ return Math.floor(snakeCanvas().height / SNAKE.grid); }
 
-/* HUD */
+/* HUD sempre atualiza “dica/alvo” */
 function snakeUpdateHud(){
   const el = document.getElementById("snakeHud");
   if(!el) return;
@@ -1584,21 +1649,28 @@ function snakeUpdateHud(){
 }
 
 /* =========================================================
-   ✅ VISIBILIDADE DO PAD (MOBILE)
-   - aparece em telas menores OU em dispositivos com touch
+   ✅ PAD VISIBILIDADE — NÃO depende de largura/orientação
+   Se o dispositivo tem toque -> mostra sempre.
 ========================================================= */
 function snakePadApplyVisibility(){
   const pad = document.getElementById("snakePad");
   if(!pad) return;
-
-  const isSmall = window.matchMedia("(max-width: 1024px)").matches;
   const hasTouch = ("ontouchstart" in window) || (navigator.maxTouchPoints > 0);
-
-  pad.style.display = (isSmall && hasTouch) ? "flex" : "none";
+  pad.style.display = hasTouch ? "flex" : "none";
 }
-window.addEventListener("load", snakePadApplyVisibility);
-window.addEventListener("resize", snakePadApplyVisibility);
-window.addEventListener("orientationchange", snakePadApplyVisibility);
+
+/* =========================================================
+   ✅ CANVAS RESPONSIVO SEM QUEBRAR A LÓGICA
+   - Mantém o “virtual” 900x360, só escala visual via CSS.
+   - Aqui a gente garante que o canvas continua com o tamanho base.
+   - Em mobile, a moldura (stage) encolhe, mas o canvas desenha igual.
+========================================================= */
+function snakeEnsureBaseCanvas(){
+  const c = snakeCanvas();
+  if(!c) return;
+  if(c.width !== SNAKE.baseW) c.width = SNAKE.baseW;
+  if(c.height !== SNAKE.baseH) c.height = SNAKE.baseH;
+}
 
 /* Teclado (desktop) */
 window.addEventListener("keydown",(e)=>{
@@ -1609,7 +1681,7 @@ window.addEventListener("keydown",(e)=>{
   if(k==="arrowright" || k==="d") snakeTurn("R");
 });
 
-/* Direção (sem permitir inversão) */
+/* Direção */
 function snakeTurn(dir){
   const d = SNAKE.dir;
   if(dir==="U" && d.y===0) SNAKE.nextDir = {x:0,y:-1};
@@ -1618,23 +1690,22 @@ function snakeTurn(dir){
   if(dir==="R" && d.x===0) SNAKE.nextDir = {x: 1,y:0};
 }
 
-/* Start / Pause / Reset */
+/* Iniciar / pausar / reset */
 function snakeStart(){
   if(SNAKE.running) return;
   SNAKE.running = true;
 
   if(!SNAKE.target) snakeNewRound();
-  snakePadApplyVisibility();
 
+  if(SNAKE.timer) clearInterval(SNAKE.timer);
   SNAKE.timer = setInterval(snakeTick, SNAKE.speedMs);
 }
+
 function snakePause(){
   SNAKE.running = false;
-  if(SNAKE.timer){
-    clearInterval(SNAKE.timer);
-    SNAKE.timer=null;
-  }
+  if(SNAKE.timer){ clearInterval(SNAKE.timer); SNAKE.timer=null; }
 }
+
 function snakeResetAll(){
   snakePause();
 
@@ -1651,9 +1722,9 @@ function snakeResetAll(){
   STATE.done.p3 = false;
   setBadge("badgeP3", false);
 
+  snakeEnsureBaseCanvas();
   snakeDraw();
   snakeUpdateHud();
-  snakePadApplyVisibility();
 }
 
 /* Nova rodada: alvo + 5 distratores */
@@ -1680,43 +1751,44 @@ function snakeNewRound(){
   snakeUpdateHud();
   snakeDraw();
 }
+
+/* Posição aleatória sem colidir */
 function snakeRandPos(){
   const cols = snakeCols(), rows = snakeRows();
   while(true){
     const pos = { x: Math.floor(Math.random()*cols), y: Math.floor(Math.random()*rows) };
 
-    if(SNAKE.snake.some(s=>s.x===pos.x && s.y===pos.y)) continue;
-    if(SNAKE.foods.some(f=>f.x===pos.x && f.y===pos.y)) continue;
+    const hitSnake = SNAKE.snake.some(s=>s.x===pos.x && s.y===pos.y);
+    if(hitSnake) continue;
+
+    const hitFood = SNAKE.foods.some(f=>f.x===pos.x && f.y===pos.y);
+    if(hitFood) continue;
 
     return pos;
   }
 }
 
-/* Tick */
+/* Tick do jogo */
 function snakeTick(){
   SNAKE.dir = {...SNAKE.nextDir};
 
   const head = SNAKE.snake[0];
   const newHead = { x: head.x + SNAKE.dir.x, y: head.y + SNAKE.dir.y };
 
-  /* parede */
   if(newHead.x < 0 || newHead.y < 0 || newHead.x >= snakeCols() || newHead.y >= snakeRows()){
     alert("❌ Bateu na parede. Regra Falange: reinicia do zero.");
     snakeResetAll();
     return;
   }
 
-  /* corpo */
   if(SNAKE.snake.some((s,i)=> i>0 && s.x===newHead.x && s.y===newHead.y)){
     alert("❌ Bateu no corpo. Regra Falange: reinicia do zero.");
     snakeResetAll();
     return;
   }
 
-  /* anda */
   SNAKE.snake.unshift(newHead);
 
-  /* come algo? */
   const idxFood = SNAKE.foods.findIndex(f=>f.x===newHead.x && f.y===newHead.y);
   if(idxFood >= 0){
     const food = SNAKE.foods[idxFood];
@@ -1727,10 +1799,8 @@ function snakeTick(){
       return;
     }
 
-    /* acertou alvo */
     SNAKE.score++;
 
-    /* vitória? */
     if(SNAKE.round >= SNAKE.goalRounds){
       snakePause();
       STATE.done.p3 = true;
@@ -1738,19 +1808,15 @@ function snakeTick(){
       alert("🏁 Parabéns! Você completou o Snake (Página 3).");
       snakeDraw();
       snakeUpdateHud();
-      if(isAllDone()) openCertificate();
       return;
     }
 
-    /* próxima rodada */
     SNAKE.round++;
     snakeNewRound();
     return;
   }
 
-  /* não comeu -> tamanho normal */
   SNAKE.snake.pop();
-
   snakeDraw();
   snakeUpdateHud();
 }
@@ -1773,7 +1839,7 @@ function snakeDraw(){
   }
   ctx.restore();
 
-  /* comidas (texto) */
+  /* comidas */
   ctx.font = "bold 16px Arial";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
@@ -1800,25 +1866,56 @@ function snakeDraw(){
 }
 
 /* =========================================================
-   [JS M] PATCH MOBILE — bloquear scroll durante jogo (melhor controle)
+   ✅ MOBILE: bloquear scroll enquanto joga (qualquer navegador)
 ========================================================= */
-const snakeScrollBlocker = (e)=>{ if(SNAKE.running) e.preventDefault(); };
-document.addEventListener("touchmove", snakeScrollBlocker, { passive:false });
-document.addEventListener("keydown", function(e){
-  if(SNAKE.running){
+function snakePreventScrollSetup(){
+  const stage = document.getElementById("snakeStage");
+  if(!stage) return;
+
+  const block = (e)=>{
+    if(SNAKE.running) e.preventDefault();
+  };
+
+  /* Bloqueia gesto no palco e no pad */
+  stage.addEventListener("touchmove", block, { passive:false });
+  document.getElementById("snakePad")?.addEventListener("touchmove", block, { passive:false });
+
+  /* Bloqueia setas no teclado enquanto roda */
+  document.addEventListener("keydown", (e)=>{
+    if(!SNAKE.running) return;
     const keys = ["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"," "];
     if(keys.includes(e.key)) e.preventDefault();
-  }
-});
+  }, { passive:false });
+}
 
 /* =========================================================
-   [JS N] INIT GERAL
+   [INÍCIO] M) INIT GERAL
 ========================================================= */
 function initAll(){
   initP2Audio();
   updateP4Out();
-  snakeResetAll();            /* desenha estado inicial */
-  snakePadApplyVisibility();  /* mostra pad em mobile */
+
+  /* Snake init */
+  snakeEnsureBaseCanvas();
+  snakePadApplyVisibility();
+  snakePreventScrollSetup();
+  snakeResetAll();
+
+  /* Reaplica visibilidade ao girar/resize (sem depender de width) */
+  window.addEventListener("resize", ()=>{
+    snakeEnsureBaseCanvas();
+    snakePadApplyVisibility();
+  });
+  window.addEventListener("orientationchange", ()=>{
+    snakeEnsureBaseCanvas();
+    snakePadApplyVisibility();
+  });
+
+  /* iOS/Safari: garante após load */
+  window.addEventListener("load", ()=>{
+    snakeEnsureBaseCanvas();
+    snakePadApplyVisibility();
+  });
 }
 initAll();
 </script>
