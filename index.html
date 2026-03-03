@@ -677,6 +677,77 @@
   body.lowVision .cardTitle{ font-size: 12.5pt; }
   body.lowVision .ctrlBtn{ font-size: 12.5pt; padding:12px 14px; }
   body.lowVision .blank{ height: 36px; font-size: 14pt; }
+/* =========================================================
+   SNAKE PAD — mais perto do jogo + cores diferentes
+========================================================= */
+
+.snakePad{
+  display:none;                 /* JS liga no mobile */
+  margin-top: 6px;              /* sobe os botões (menos espaço) */
+  gap: 8px;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+
+  /* “gruda” perto do jogo no celular */
+  position: sticky;
+  bottom: 6px;
+  z-index: 50;
+
+  padding: 8px 10px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.85);
+  border: 2px solid rgba(0,0,0,.18);
+  backdrop-filter: blur(4px);
+}
+
+.snakeMidRow{
+  display:flex;
+  gap:8px;
+}
+
+.snakeBtn{
+  min-width: 54px;
+  height: 52px;
+  border-radius: 14px;
+  border: 2px solid rgba(0,0,0,.35);
+  font-weight: 900;
+  font-size: 16pt;
+  cursor: pointer;
+  user-select:none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Cores por direção (bem visível) */
+.snakeUp{
+  background: #22c55e;     /* verde */
+  color: #fff;
+}
+.snakeLeft{
+  background: #3b82f6;     /* azul */
+  color: #fff;
+}
+.snakeRight{
+  background: #f59e0b;     /* laranja */
+  color: #111;
+}
+.snakeDown{
+  background: #ef4444;     /* vermelho */
+  color: #fff;
+}
+
+/* Feedback de toque */
+.snakeBtn:active{
+  transform: scale(0.98);
+  filter: brightness(0.95);
+}
+
+/* No modo baixa visão: botões maiores */
+body.lowVision .snakeBtn{
+  min-width: 64px;
+  height: 60px;
+  font-size: 18pt;
+}
   </style>
 </head>
 
@@ -936,7 +1007,7 @@
 
           <div class="snakeHud" id="snakeHud">Rodada 1/10 • COMER: — • Pontos: 0</div>
 
-          <canvas id="snakeCanvas" class="snakeCanvas" width="900" height="420"></canvas>
+          <canvas id="snakeCanvas" class="snakeCanvas" width="900" height="360"></canvas>
 
           <div class="controls">
             <button class="ctrlBtn" type="button" onclick="snakeStart()">▶️ INICIAR</button>
@@ -949,14 +1020,16 @@
           </div>
 
           <!-- Controles mobile -->
-          <div id="snakePad" class="snakePad" aria-label="Controles mobile do Snake">
-            <button class="ctrlBtn" type="button" onclick="snakeTurn('U')">⬆️</button>
-            <div style="display:flex; gap:10px;">
-              <button class="ctrlBtn" type="button" onclick="snakeTurn('L')">⬅️</button>
-              <button class="ctrlBtn" type="button" onclick="snakeTurn('R')">➡️</button>
-            </div>
-            <button class="ctrlBtn" type="button" onclick="snakeTurn('D')">⬇️</button>
-          </div>
+          <div id="snakePad" class="snakePad">
+  <button class="snakeBtn snakeUp"   type="button" onclick="snakeTurn('U')">⬆️</button>
+
+  <div class="snakeMidRow">
+    <button class="snakeBtn snakeLeft"  type="button" onclick="snakeTurn('L')">⬅️</button>
+    <button class="snakeBtn snakeRight" type="button" onclick="snakeTurn('R')">➡️</button>
+  </div>
+
+  <button class="snakeBtn snakeDown" type="button" onclick="snakeTurn('D')">⬇️</button>
+</div>
 
           <div class="doneBadge" id="badgeP3">✅ Página 3 concluída!</div>
 
