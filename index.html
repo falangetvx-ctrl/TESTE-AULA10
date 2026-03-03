@@ -748,6 +748,27 @@ body.lowVision .snakeBtn{
   height: 60px;
   font-size: 18pt;
 }
+/* =========================================================
+   FIX SNAKE PAD — sempre visível em mobile (retrato e paisagem)
+========================================================= */
+
+/* Mobile geral */
+@media (max-width: 1024px){
+  #snakePad{ display:flex !important; }
+}
+
+/* Paisagem em celular/tablet (garante mesmo se a largura “passar”) */
+@media (orientation: landscape) and (max-height: 520px){
+  #snakePad{ display:flex !important; }
+}
+
+/* Evita sumir por sticky em alguns navegadores */
+#snakePad{
+  position: relative;   /* em vez de sticky */
+  bottom: auto;
+  margin-top: 8px;
+}
+#snakePad button{ touch-action: manipulation; }
   </style>
 </head>
 
@@ -1009,26 +1030,26 @@ body.lowVision .snakeBtn{
 
           <canvas id="snakeCanvas" class="snakeCanvas" width="900" height="360"></canvas>
 
-          <div class="controls">
-            <button class="ctrlBtn" type="button" onclick="snakeStart()">▶️ INICIAR</button>
-            <button class="ctrlBtn" type="button" onclick="snakePause()">⏸️ PAUSAR</button>
-            <button class="ctrlBtn" type="button" onclick="snakeResetAll()">🔄 REINICIAR</button>
-            <button class="ctrlBtn" type="button"
-              onclick="openExplain('🎮 Como jogar','<div style=&quot;text-align:left;&quot;>Use as setas do teclado (ou W A S D).<br><br><b>Objetivo:</b> comer a palavra do <b>ALVO</b>.<br><b>Se comer errado</b> ou bater na parede/corpo → reinicia tudo.<br><br>Complete <b>10 rodadas</b> para concluir a Página 3.</div>')">
-              ℹ️ AJUDA
-            </button>
-          </div>
-
-          <!-- Controles mobile -->
-          <div id="snakePad" class="snakePad">
-  <button class="snakeBtn snakeUp"   type="button" onclick="snakeTurn('U')">⬆️</button>
+<!-- Controles mobile (AGORA FICAM ACIMA DOS BOTÕES) -->
+<div id="snakePad" class="snakePad">
+  <button class="snakeBtn snakeUp" type="button" onclick="snakeTurn('U')">⬆️</button>
 
   <div class="snakeMidRow">
-    <button class="snakeBtn snakeLeft"  type="button" onclick="snakeTurn('L')">⬅️</button>
+    <button class="snakeBtn snakeLeft" type="button" onclick="snakeTurn('L')">⬅️</button>
     <button class="snakeBtn snakeRight" type="button" onclick="snakeTurn('R')">➡️</button>
   </div>
 
   <button class="snakeBtn snakeDown" type="button" onclick="snakeTurn('D')">⬇️</button>
+</div>
+
+<div class="controls">
+  <button class="ctrlBtn" type="button" onclick="snakeStart()">▶️ INICIAR</button>
+  <button class="ctrlBtn" type="button" onclick="snakePause()">⏸️ PAUSAR</button>
+  <button class="ctrlBtn" type="button" onclick="snakeResetAll()">🔄 REINICIAR</button>
+  <button class="ctrlBtn" type="button"
+    onclick="openExplain('🎮 Como jogar','<div style=&quot;text-align:left;&quot;>Use as setas do teclado (ou W A S D).<br><br><b>Objetivo:</b> comer a palavra do <b>ALVO</b>.<br><b>Se comer errado</b> ou bater na parede/corpo → reinicia tudo.<br><br>Complete <b>10 rodadas</b> para concluir a Página 3.</div>')">
+    ℹ️ AJUDA
+  </button>
 </div>
 
           <div class="doneBadge" id="badgeP3">✅ Página 3 concluída!</div>
