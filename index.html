@@ -4,10 +4,18 @@
   <!-- =========================================================
        AULA 10 PREMIUM FALANGE — ADJETIVOS POSESIVOS (ESPAÑOL)
        4 PÁGINAS (padrão Falange Premium):
-         P1 (1 coluna): Imagem grande + modal explicativo (clique)
-         P2 (2 colunas): Áudio guiado (1 por vez) + Completa (1 erro = reset total)
-         P3 (1 coluna): Jogo SNAKE — “come” o posesivo correto (10 rodadas)
-         P4 (2 colunas): Escape Room (4 respostas → código) + Revisão + Certificado
+         P1: Imagem grande + modal explicativo (clique)
+         P2: Áudio guiado (1 por vez) + Completa (1 erro = reset total)
+         P3: Jogo SNAKE — “come” o posesivo correto (10 rodadas)
+         P4: Escape Room (4 respostas → código) + Revisão + Certificado
+
+       ✅ AJUSTES DESTA VERSÃO (PEDIDOS AGORA):
+         1) Ainda cortava no celular:
+            - Pad (setas) AGORA fica “DENTRO” da área do jogo (sobre o canvas),
+              fixo no canto inferior esquerdo do jogo.
+         2) Botões INICIAR/PAUSAR/REINICIAR/AJUDA foram “subidos”:
+            - Agora ficam ACIMA do canvas, logo após o HUD.
+         3) Código reescrito e organizado (CSS / HTML / JS) com comentários.
   ========================================================== -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -15,7 +23,7 @@
 
   <style>
   /* =========================================================
-     [INÍCIO] 0) VARIÁVEIS (Design System Falange)
+     [CSS 0] DESIGN SYSTEM (Variáveis Falange)
   ========================================================== */
   :root{
     --paper:#f3f4df;
@@ -32,8 +40,9 @@
   *{ box-sizing:border-box; }
 
   /* =========================================================
-     [INÍCIO] 1) BODY / CENTRALIZAÇÃO (anti-corte)
+     [CSS 1] BASE / ANTI-CORTE GLOBAL
   ========================================================== */
+  html, body{ max-width:100%; }
   body{
     margin:0;
     background:#e5e7eb;
@@ -47,6 +56,8 @@
     overflow-x:auto;
     overflow-y:auto;
   }
+  img, video, canvas{ max-width:100%; height:auto; }
+
   .wrap{
     display:flex;
     flex-direction:column;
@@ -56,9 +67,8 @@
   }
 
   /* =========================================================
-     [INÍCIO] 2) PÁGINA (A4 LANDSCAPE) + ÁREA ÚTIL
-     OBS: Mantive seu tamanho original (297mm x 340mm).
-          Se você usa 300x250mm em outras aulas, pode ajustar aqui.
+     [CSS 2] PÁGINA (A4 LANDSCAPE) + ÁREA ÚTIL
+     OBS: Mantido seu tamanho (297mm x 340mm).
   ========================================================== */
   .page{
     width:297mm;
@@ -78,7 +88,7 @@
     bottom:18mm;
   }
 
-  /* FUNDO opcional (se você usa “igual suas aulas”) */
+  /* Fundo opcional */
   .content::before{
     content:"";
     position:absolute;
@@ -92,7 +102,7 @@
   .content > *{ position:relative; z-index:1; }
 
   /* =========================================================
-     [INÍCIO] 3) CABEÇALHO (padrão)
+     [CSS 3] CABEÇALHO
   ========================================================== */
   .titleRow{
     margin-top:6px;
@@ -128,7 +138,7 @@
   }
 
   /* =========================================================
-     [INÍCIO] 4) COLUNAS / CARDS
+     [CSS 4] COLUNAS / CARDS / BOTÕES
   ========================================================== */
   .cols{
     margin-top:8px;
@@ -183,7 +193,7 @@
   }
 
   /* =========================================================
-     [INÍCIO] 5) IMAGEM GRANDE (P1)
+     [CSS 5] P1 — IMAGEM GRANDE (clicável)
   ========================================================== */
   .bigImgWrap{
     margin-top:10px;
@@ -210,7 +220,7 @@
   }
 
   /* =========================================================
-     [INÍCIO] 6) INPUTS / VALIDAÇÃO (padrão Falange)
+     [CSS 6] INPUTS / VALIDAÇÃO (padrão Falange)
   ========================================================== */
   .dialogue{ font-size:10.5pt; line-height:1.55; color:#111; }
   .dialogue b{ font-weight:900; }
@@ -245,7 +255,7 @@
   }
 
   /* =========================================================
-     [INÍCIO] 7) BADGE (progresso premium)
+     [CSS 7] BADGE (progresso premium)
   ========================================================== */
   .doneBadge{
     display:none;
@@ -260,7 +270,7 @@
   }
 
   /* =========================================================
-     [INÍCIO] 8) MCQ (usado na revisão da P4)
+     [CSS 8] MCQ (Revisão P4)
   ========================================================== */
   .mcq{
     margin-top:10px;
@@ -316,7 +326,7 @@
   }
 
   /* =========================================================
-     [INÍCIO] 9) REGISTRO + CERTIFICADO (padrão)
+     [CSS 9] REGISTRO + CERTIFICADO
   ========================================================== */
   #studentRegister{
     width: min(520px, calc(100vw - 24px));
@@ -373,6 +383,7 @@
     color:#111;
   }
 
+  /* Overlay certificado */
   #certOverlay{
     position:fixed;
     inset:0;
@@ -445,7 +456,7 @@
   }
 
   /* =========================================================
-     [INÍCIO] 10) MODAL/OVERLAY EXPLICATIVO (padrão premium)
+     [CSS 10] MODAL EXPLICATIVO
   ========================================================== */
   #explainOverlay{
     position: fixed;
@@ -494,16 +505,9 @@
     line-height:1.45;
     text-align: left;
   }
-  #explainBtns{
-    margin-top: 14px;
-    display:flex;
-    gap:10px;
-    justify-content:center;
-    flex-wrap:wrap;
-  }
 
   /* =========================================================
-     [INÍCIO] 11) P2 — ÁUDIO (1 por vez) + lista visual
+     [CSS 11] P2 — ÁUDIO
   ========================================================== */
   .p2AudioBar{
     display:flex;
@@ -565,11 +569,7 @@
   }
   .p2Dot.on{ background: rgba(58,160,230,.90); border-color: rgba(58,160,230,.90); }
   .p2Dot.done{ background: rgba(46,204,113,.90); border-color: rgba(46,204,113,.90); }
-  .p2AudioText{
-    font-weight:900;
-    font-size:10pt;
-    line-height:1.25;
-  }
+  .p2AudioText{ font-weight:900; font-size:10pt; line-height:1.25; }
   .p2SmallHint{
     margin-top:10px;
     font-size:9pt;
@@ -582,7 +582,7 @@
   }
 
   /* =========================================================
-     [INÍCIO] 12) P3 — SNAKE (canvas + HUD)
+     [CSS 12] P3 — SNAKE (HUD + CANVAS + PAD DENTRO)
   ========================================================== */
   .snakeHud{
     margin-top:10px;
@@ -593,24 +593,65 @@
     border:2px dashed rgba(0,0,0,.22);
     background: rgba(58,160,230,.08);
   }
-  .snakeCanvas{
+
+  /* ✅ “PALCO” do snake: aqui fica o canvas + botões por cima */
+  .snakeStage{
     margin-top:10px;
-    width:100%;
+    position:relative;
     border:3px solid rgba(0,0,0,.65);
     border-radius:12px;
     background:#fff;
-    display:block;
-  }
-  .snakePad{
-    margin-top:10px;
-    display:none;
-    justify-content:center;
-    gap:10px;
-    flex-wrap:wrap;
+    overflow:hidden; /* garante que o pad não “vaze” */
   }
 
+  /* Canvas desenha no tamanho interno (width/height no HTML)
+     CSS só faz ele se ajustar na tela (sem cortar) */
+  #snakeCanvas{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+
+  /* ✅ PAD DENTRO DO “PALCO”, canto inferior esquerdo */
+  #snakePad{
+    position:absolute;
+    left:10px;
+    bottom:10px;
+    z-index:50;
+
+    display:none;           /* aparece só em telas touch/mobile */
+    gap:8px;
+    align-items:center;
+    flex-wrap:wrap;
+
+    padding:8px 10px;
+    border-radius:14px;
+    background: rgba(255,255,255,.92);
+    border:2px solid rgba(0,0,0,.22);
+    backdrop-filter: blur(4px);
+  }
+  .snakeMidRow{ display:flex; gap:8px; }
+
+  .snakeBtn{
+    min-width: 52px;
+    height: 50px;
+    border-radius: 14px;
+    border: 2px solid rgba(0,0,0,.35);
+    font-weight: 900;
+    font-size: 16pt;
+    cursor: pointer;
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  .snakeUp{    background:#22c55e; color:#fff; }
+  .snakeLeft{  background:#3b82f6; color:#fff; }
+  .snakeRight{ background:#f59e0b; color:#111; }
+  .snakeDown{  background:#ef4444; color:#fff; }
+  .snakeBtn:active{ transform: scale(0.98); filter: brightness(0.95); }
+
   /* =========================================================
-     [INÍCIO] 13) PRINT: só o certificado
+     [CSS 13] PRINT: só o certificado
   ========================================================== */
   @media print{
     *{ -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -628,11 +669,8 @@
   }
 
   /* =========================================================
-     [INÍCIO] 14) ♿✅ ANTI-CORTE TOTAL + BAIXA VISÃO
+     [CSS 14] RESPONSIVO + BAIXA VISÃO (ANTI-CORTE)
   ========================================================== */
-  html, body{ max-width:100%; }
-  img, video, canvas{ max-width:100%; height:auto; }
-
   @media (max-width: 980px){
     body{ padding:8px; overflow-x:auto; overflow-y:auto; }
     .wrap{ width:100%; align-items:center; }
@@ -651,9 +689,19 @@
     }
     .cols{ grid-template-columns:1fr; }
     .ctrlBtn{ padding:10px 12px; font-size:12pt; }
-    .snakePad{ display:flex; }
+
+    /* ✅ pad aparece no mobile */
+    #snakePad{ display:flex; }
   }
 
+  /* ✅ paisagem com pouca altura (celular deitado):
+     - reduz um pouco o “palco” para caber melhor */
+  @media (orientation: landscape) and (max-height: 520px){
+    .snakeStage{ max-height: 52vh; } /* ajuda a caber HUD + controles */
+    #snakePad{ display:flex !important; }
+  }
+
+  /* Baixa visão */
   body.lowVision{
     font-size: 135%;
     overflow-x:auto;
@@ -677,105 +725,19 @@
   body.lowVision .cardTitle{ font-size: 12.5pt; }
   body.lowVision .ctrlBtn{ font-size: 12.5pt; padding:12px 14px; }
   body.lowVision .blank{ height: 36px; font-size: 14pt; }
-/* =========================================================
-   SNAKE PAD — mais perto do jogo + cores diferentes
-========================================================= */
 
-.snakePad{
-  display:none;                 /* JS liga no mobile */
-  margin-top: 6px;              /* sobe os botões (menos espaço) */
-  gap: 8px;
-  justify-content:center;
-  align-items:center;
-  flex-wrap:wrap;
-
-  /* “gruda” perto do jogo no celular */
-  position: sticky;
-  bottom: 6px;
-  z-index: 50;
-
-  padding: 8px 10px;
-  border-radius: 14px;
-  background: rgba(255,255,255,.85);
-  border: 2px solid rgba(0,0,0,.18);
-  backdrop-filter: blur(4px);
-}
-
-.snakeMidRow{
-  display:flex;
-  gap:8px;
-}
-
-.snakeBtn{
-  min-width: 54px;
-  height: 52px;
-  border-radius: 14px;
-  border: 2px solid rgba(0,0,0,.35);
-  font-weight: 900;
-  font-size: 16pt;
-  cursor: pointer;
-  user-select:none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* Cores por direção (bem visível) */
-.snakeUp{
-  background: #22c55e;     /* verde */
-  color: #fff;
-}
-.snakeLeft{
-  background: #3b82f6;     /* azul */
-  color: #fff;
-}
-.snakeRight{
-  background: #f59e0b;     /* laranja */
-  color: #111;
-}
-.snakeDown{
-  background: #ef4444;     /* vermelho */
-  color: #fff;
-}
-
-/* Feedback de toque */
-.snakeBtn:active{
-  transform: scale(0.98);
-  filter: brightness(0.95);
-}
-
-/* No modo baixa visão: botões maiores */
-body.lowVision .snakeBtn{
-  min-width: 64px;
-  height: 60px;
-  font-size: 18pt;
-}
-/* =========================================================
-   FIX SNAKE PAD — sempre visível em mobile (retrato e paisagem)
-========================================================= */
-
-/* Mobile geral */
-@media (max-width: 1024px){
-  #snakePad{ display:flex !important; }
-}
-
-/* Paisagem em celular/tablet (garante mesmo se a largura “passar”) */
-@media (orientation: landscape) and (max-height: 520px){
-  #snakePad{ display:flex !important; }
-}
-
-/* Evita sumir por sticky em alguns navegadores */
-#snakePad{
-  position: relative;   /* em vez de sticky */
-  bottom: auto;
-  margin-top: 8px;
-}
-#snakePad button{ touch-action: manipulation; }
+  body.lowVision .snakeBtn{
+    min-width: 64px;
+    height: 60px;
+    font-size: 18pt;
+  }
   </style>
 </head>
 
 <body>
 
 <!-- =========================================================
-     ♿ BOTÃO FLUTUANTE — BAIXA VISÃO (sempre visível)
+     [HTML] ♿ BOTÃO FLUTUANTE — BAIXA VISÃO
 ========================================================= -->
 <div id="a11yFab" style="
   position:fixed; right:12px; bottom:12px; z-index:99999;
@@ -788,7 +750,7 @@ body.lowVision .snakeBtn{
 </div>
 
 <!-- =====================================================
-     1) REGISTRO DO ALUNO (padrão)
+     [HTML] A) REGISTRO DO ALUNO
 ===================================================== -->
 <div id="studentRegister" aria-label="Registro do aluno">
   <div class="regTitle">REGISTRO DO ALUNO</div>
@@ -813,7 +775,7 @@ body.lowVision .snakeBtn{
 </div>
 
 <!-- =====================================================
-     2) CERTIFICADO (automático ao concluir tudo)
+     [HTML] B) CERTIFICADO
 ===================================================== -->
 <div id="certOverlay" aria-label="Certificado de conclusão">
   <div id="certCard">
@@ -821,9 +783,7 @@ body.lowVision .snakeBtn{
       <div id="certTitle">Certificado de Conclusão</div>
       <div id="certSub">Espanhol — Aula 10 (Adjetivos Posesivos) • Premium Falange</div>
 
-      <div style="margin-top:10px; font-size:11pt; color:#111;">
-        Certificamos que
-      </div>
+      <div style="margin-top:10px; font-size:11pt; color:#111;">Certificamos que</div>
       <div id="certName">—</div>
 
       <div id="certMeta">
@@ -842,7 +802,7 @@ body.lowVision .snakeBtn{
 </div>
 
 <!-- =====================================================
-     3) MODAL EXPLICATIVO (P1/P2/P3/P4)
+     [HTML] C) MODAL EXPLICATIVO
 ===================================================== -->
 <div id="explainOverlay" aria-label="Explicação">
   <div id="explainCard">
@@ -850,8 +810,7 @@ body.lowVision .snakeBtn{
       <div id="explainTitle">Explicação</div>
       <div id="explainES">—</div>
       <div id="explainPT">—</div>
-
-      <div id="explainBtns">
+      <div id="explainBtns" style="margin-top:14px; display:flex; justify-content:center;">
         <button class="certBtn" type="button" onclick="closeExplain()">FECHAR</button>
       </div>
     </div>
@@ -859,12 +818,12 @@ body.lowVision .snakeBtn{
 </div>
 
 <!-- =====================================================
-     4) “LIVRO” (as 4 páginas) — começa oculto
+     [HTML] D) LIVRO (4 páginas) — começa oculto
 ===================================================== -->
 <div class="wrap" id="book" style="display:none;">
 
   <!-- =====================================================
-       ✅ PÁGINA 1 (1 coluna) — IMAGEM GRANDE + MODAL
+       PÁGINA 1 — IMAGEM + MODAL
   ====================================================== -->
   <section class="page" aria-label="Página 1 — Conteúdo (Posesivos)">
     <div class="content">
@@ -875,9 +834,7 @@ body.lowVision .snakeBtn{
         <div class="bncc" style="padding-right:2mm;">ESPAÑOL</div>
       </div>
 
-      <div class="bars">
-        <div class="bar"></div><div style="width:12px;"></div><div class="bar"></div>
-      </div>
+      <div class="bars"><div class="bar"></div><div style="width:12px;"></div><div class="bar"></div></div>
 
       <div class="cols oneCol">
         <div class="card">
@@ -887,12 +844,10 @@ body.lowVision .snakeBtn{
             Clique na imagem para abrir uma explicação bem simples com exemplos em português.
           </p>
 
-          <!-- IMAGEM GRANDE E CLICÁVEL -->
           <div class="bigImgWrap" role="button" tabindex="0"
             onclick="openPossessiveExplain()"
             onkeydown="if(event.key==='Enter'){ this.click(); }"
             aria-label="Imagem de adjetivos posesivos (clique para abrir explicação)">
-            <!-- ✅ IMPORTANTE: coloque este arquivo na mesma pasta do HTML -->
             <img src="adjetivos-posesivos.jpg" alt="Tabela de adjetivos posesivos em espanhol">
           </div>
 
@@ -914,7 +869,7 @@ body.lowVision .snakeBtn{
   </section>
 
   <!-- =====================================================
-       ✅ PÁGINA 2 — ÁUDIO GUIADO + COMPLETA (RESET TOTAL SE ERRAR)
+       PÁGINA 2 — ÁUDIO + COMPLETA (RESET TOTAL SE ERRAR)
   ====================================================== -->
   <section class="page" aria-label="Página 2 — Áudio + Completa (Posesivos)">
     <div class="content">
@@ -925,13 +880,11 @@ body.lowVision .snakeBtn{
         <div class="bncc" style="padding-right:2mm;">PÁGINA 2</div>
       </div>
 
-      <div class="bars">
-        <div class="bar"></div><div style="width:12px;"></div><div class="bar"></div>
-      </div>
+      <div class="bars"><div class="bar"></div><div style="width:12px;"></div><div class="bar"></div></div>
 
       <div class="cols">
 
-        <!-- COLUNA ESQUERDA — ÁUDIO GUIADO -->
+        <!-- ÁUDIO -->
         <div>
           <div class="card">
             <div class="cardTitle">🎧 Escucha (1 por vez)</div>
@@ -946,7 +899,6 @@ body.lowVision .snakeBtn{
 
             <div class="p2AudioBar">
               <div class="p2Step" id="p2StepText">Paso 1 de 8</div>
-
               <div class="p2AudioBtns">
                 <button class="p2AudioBtn p2AudioBtnPrimary" type="button" onclick="p2PlayAudio()">▶️ Escuchar</button>
                 <button class="p2AudioBtn" type="button" onclick="p2Restart()">🔄 Reiniciar</button>
@@ -954,10 +906,7 @@ body.lowVision .snakeBtn{
               </div>
             </div>
 
-            <!-- player oculto (controlado pelos botões) -->
             <audio id="p2Audio"></audio>
-
-            <!-- checklist visual (8 passos) -->
             <div class="p2AudioList" id="p2AudioList"></div>
 
             <div class="p2SmallHint">
@@ -966,7 +915,7 @@ body.lowVision .snakeBtn{
           </div>
         </div>
 
-        <!-- COLUNA DIREITA — COMPLETA -->
+        <!-- COMPLETA -->
         <div>
           <div class="card">
             <div class="cardTitle">🧩 Completa y verifica</div>
@@ -1002,7 +951,7 @@ body.lowVision .snakeBtn{
   </section>
 
   <!-- =====================================================
-       ✅ PÁGINA 3 — SNAKE (10 rodadas)
+       PÁGINA 3 — SNAKE (PAD DENTRO DO CANVAS + CONTROLES SUBIDOS)
   ====================================================== -->
   <section class="page" aria-label="Página 3 — Snake (Posesivos)">
     <div class="content">
@@ -1013,9 +962,7 @@ body.lowVision .snakeBtn{
         <div class="bncc" style="padding-right:2mm;">PÁGINA 3</div>
       </div>
 
-      <div class="bars">
-        <div class="bar"></div><div style="width:12px;"></div><div class="bar"></div>
-      </div>
+      <div class="bars"><div class="bar"></div><div style="width:12px;"></div><div class="bar"></div></div>
 
       <div class="cols oneCol">
         <div class="card">
@@ -1028,29 +975,31 @@ body.lowVision .snakeBtn{
 
           <div class="snakeHud" id="snakeHud">Rodada 1/10 • COMER: — • Pontos: 0</div>
 
-          <canvas id="snakeCanvas" class="snakeCanvas" width="900" height="360"></canvas>
+          <!-- ✅ CONTROLES “SUBIDOS” (AGORA ACIMA DO CANVAS) -->
+          <div class="controls" style="margin-top:10px;">
+            <button class="ctrlBtn" type="button" onclick="snakeStart()">▶️ INICIAR</button>
+            <button class="ctrlBtn" type="button" onclick="snakePause()">⏸️ PAUSAR</button>
+            <button class="ctrlBtn" type="button" onclick="snakeResetAll()">🔄 REINICIAR</button>
+            <button class="ctrlBtn" type="button"
+              onclick="openExplain('🎮 Como jogar','<div style=&quot;text-align:left;&quot;>Use as setas do teclado (ou W A S D).<br><br><b>Objetivo:</b> comer a palavra do <b>ALVO</b>.<br><b>Se comer errado</b> ou bater na parede/corpo → reinicia tudo.<br><br>Complete <b>10 rodadas</b> para concluir a Página 3.</div>')">
+              ℹ️ AJUDA
+            </button>
+          </div>
 
-<!-- Controles mobile (AGORA FICAM ACIMA DOS BOTÕES) -->
-<div id="snakePad" class="snakePad">
-  <button class="snakeBtn snakeUp" type="button" onclick="snakeTurn('U')">⬆️</button>
+          <!-- ✅ PALCO DO SNAKE (canvas + setas por cima, dentro) -->
+          <div class="snakeStage" aria-label="Área do jogo Snake">
+            <canvas id="snakeCanvas" width="900" height="360"></canvas>
 
-  <div class="snakeMidRow">
-    <button class="snakeBtn snakeLeft" type="button" onclick="snakeTurn('L')">⬅️</button>
-    <button class="snakeBtn snakeRight" type="button" onclick="snakeTurn('R')">➡️</button>
-  </div>
-
-  <button class="snakeBtn snakeDown" type="button" onclick="snakeTurn('D')">⬇️</button>
-</div>
-
-<div class="controls">
-  <button class="ctrlBtn" type="button" onclick="snakeStart()">▶️ INICIAR</button>
-  <button class="ctrlBtn" type="button" onclick="snakePause()">⏸️ PAUSAR</button>
-  <button class="ctrlBtn" type="button" onclick="snakeResetAll()">🔄 REINICIAR</button>
-  <button class="ctrlBtn" type="button"
-    onclick="openExplain('🎮 Como jogar','<div style=&quot;text-align:left;&quot;>Use as setas do teclado (ou W A S D).<br><br><b>Objetivo:</b> comer a palavra do <b>ALVO</b>.<br><b>Se comer errado</b> ou bater na parede/corpo → reinicia tudo.<br><br>Complete <b>10 rodadas</b> para concluir a Página 3.</div>')">
-    ℹ️ AJUDA
-  </button>
-</div>
+            <!-- ✅ PAD dentro do “palco”, canto inferior esquerdo -->
+            <div id="snakePad" aria-label="Controles do Snake (mobile)">
+              <button class="snakeBtn snakeUp" type="button" onclick="snakeTurn('U')">⬆️</button>
+              <div class="snakeMidRow">
+                <button class="snakeBtn snakeLeft" type="button" onclick="snakeTurn('L')">⬅️</button>
+                <button class="snakeBtn snakeRight" type="button" onclick="snakeTurn('R')">➡️</button>
+              </div>
+              <button class="snakeBtn snakeDown" type="button" onclick="snakeTurn('D')">⬇️</button>
+            </div>
+          </div>
 
           <div class="doneBadge" id="badgeP3">✅ Página 3 concluída!</div>
 
@@ -1065,7 +1014,7 @@ body.lowVision .snakeBtn{
   </section>
 
   <!-- =====================================================
-       ✅ PÁGINA 4 — ESCAPE ROOM + REVISÃO + CERTIFICADO
+       PÁGINA 4 — ESCAPE ROOM + REVISÃO + CERTIFICADO
   ====================================================== -->
   <section class="page" aria-label="Página 4 — Escape Room (Posesivos)">
     <div class="content">
@@ -1076,13 +1025,11 @@ body.lowVision .snakeBtn{
         <div class="bncc" style="padding-right:2mm;">PÁGINA 4</div>
       </div>
 
-      <div class="bars">
-        <div class="bar"></div><div style="width:12px;"></div><div class="bar"></div>
-      </div>
+      <div class="bars"><div class="bar"></div><div style="width:12px;"></div><div class="bar"></div></div>
 
       <div class="cols">
 
-        <!-- ESQUERDA: Escape -->
+        <!-- ESCAPE -->
         <div>
           <div class="card">
             <div class="cardTitle">C) 4 DESAFIOS = 1 CÓDIGO</div>
@@ -1139,7 +1086,7 @@ body.lowVision .snakeBtn{
           </div>
         </div>
 
-        <!-- DIREITA: Revisão -->
+        <!-- REVISÃO -->
         <div>
           <div class="card">
             <div class="cardTitle">D) REVISÃO FINAL (1 minuto)</div>
@@ -1186,26 +1133,16 @@ body.lowVision .snakeBtn{
 
 <script>
 /* =========================================================
-   [INÍCIO] A) ESTADO GLOBAL (progresso da Aula 10)
+   [JS A] ESTADO GLOBAL (progresso da Aula 10)
 ========================================================= */
 const STATE = {
   student: { name:"", turma:"", escola:"" },
-  done: {
-    p1:false,
-    p2:false,
-    p3:false,
-    p4:false,
-    p4C:false, /* Escape OK */
-    p4D:false  /* Revisão OK */
-  },
-  p4: {
-    keys: ["_","_","_","_"],
-    final: "FALG" // código final do escape (padrão Falange curto)
-  }
+  done: { p1:false, p2:false, p3:false, p4:false, p4C:false, p4D:false },
+  p4: { keys: ["_","_","_","_"], final: "FALG" }
 };
 
 /* =========================================================
-   [INÍCIO] B) UTILIDADES
+   [JS B] UTILIDADES
 ========================================================= */
 function nowBR(){
   const d = new Date();
@@ -1226,31 +1163,33 @@ function setBadge(id, show){
   el.style.display = show ? "block" : "none";
 }
 function normUp(s){ return String(s||"").trim().toUpperCase(); }
-function normLow(s){
-  return String(s||"").trim().toLowerCase().replace(/\s+/g," ");
+function normLow(s){ return String(s||"").trim().toLowerCase().replace(/\s+/g," "); }
+
+/* =========================================================
+   [JS C] BAIXA VISÃO
+========================================================= */
+function toggleLowVision(){
+  document.body.classList.toggle("lowVision");
+  snakePadApplyVisibility();
 }
 
 /* =========================================================
-   [INÍCIO] C) BAIXA VISÃO
-========================================================= */
-function toggleLowVision(){ document.body.classList.toggle("lowVision"); }
-
-/* =========================================================
-   [INÍCIO] D) REGISTRO / CERTIFICADO
+   [JS D] REGISTRO / CERTIFICADO
 ========================================================= */
 function saveStudent(){
   const name = document.getElementById("studentName").value.trim();
   const turma = document.getElementById("studentClass").value.trim();
   const escola = document.getElementById("studentSchool").value.trim();
-  if(!name || !turma || !escola){ alert("Preencha NOME, TURMA e ESCOLA."); return; }
+  if(!name || !turma || !escola){
+    alert("Preencha NOME, TURMA e ESCOLA.");
+    return;
+  }
   STATE.student = { name, turma, escola };
   document.getElementById("studentRegister").style.display = "none";
   document.getElementById("book").style.display = "flex";
   scrollToPage(1);
 }
-function isAllDone(){
-  return STATE.done.p1 && STATE.done.p2 && STATE.done.p3 && STATE.done.p4;
-}
+function isAllDone(){ return STATE.done.p1 && STATE.done.p2 && STATE.done.p3 && STATE.done.p4; }
 function openCertificate(){
   const dt = nowBR();
   document.getElementById("certName").innerText = STATE.student.name || "—";
@@ -1262,12 +1201,15 @@ function openCertificate(){
 }
 function closeCertificate(){ document.getElementById("certOverlay").style.display = "none"; }
 function tryOpenCertificate(){
-  if(!isAllDone()){ alert("Ainda falta concluir atividades para liberar o certificado."); return; }
+  if(!isAllDone()){
+    alert("Ainda falta concluir atividades para liberar o certificado.");
+    return;
+  }
   openCertificate();
 }
 
 /* =========================================================
-   [INÍCIO] E) MODAL EXPLICATIVO
+   [JS E] MODAL EXPLICATIVO
 ========================================================= */
 function openExplain(es, pt){
   document.getElementById("explainES").innerHTML = es;
@@ -1277,7 +1219,7 @@ function openExplain(es, pt){
 function closeExplain(){ document.getElementById("explainOverlay").style.display = "none"; }
 
 /* =========================================================
-   [INÍCIO] F) P1 — MODAL EXPLICANDO POSSESSIVOS
+   [JS F] P1 — EXPLICAÇÃO POSSESSIVOS
 ========================================================= */
 function openPossessiveExplain(){
   openExplain(
@@ -1312,7 +1254,7 @@ function openPossessiveExplain(){
 }
 
 /* =========================================================
-   [INÍCIO] G) CONCLUIR PÁGINAS
+   [JS G] CONCLUIR PÁGINAS
 ========================================================= */
 function markDone(pageKey){
   STATE.done[pageKey] = true;
@@ -1326,7 +1268,7 @@ function markDone(pageKey){
 }
 
 /* =========================================================
-   [INÍCIO] H) P2 — COMPLETA (1 erro = reset total)
+   [JS H] P2 — COMPLETA (1 erro = reset total)
 ========================================================= */
 function resetP2(){
   const inputs = document.querySelectorAll(".p2");
@@ -1338,10 +1280,8 @@ function resetP2(){
   STATE.done.p2 = false;
   setBadge("badgeP2", false);
 
-  // reset do áudio (volta pro passo 1)
   p2Restart();
 }
-
 function checkP2All(){
   const inputs = document.querySelectorAll(".p2");
 
@@ -1359,7 +1299,6 @@ function checkP2All(){
     }
   }
 
-  // Tudo certo
   inputs.forEach(i=>{
     i.value = normLow(i.dataset.right);
     i.classList.add("is-right");
@@ -1368,17 +1307,12 @@ function checkP2All(){
   STATE.done.p2 = true;
   setBadge("badgeP2", true);
 
-  // marca o passo atual como concluído (para liberar “Próximo”)
   p2MarkDoneStep();
-
   alert("🎉 Perfeito! Página 2 (passo atual) concluída. Pode avançar no áudio.");
 }
 
 /* =========================================================
-   P2 — ÁUDIO POR PASSOS (1 por vez)
-   - 8 passos (1 áudio por vez)
-   - “Próximo” só avança se o passo atual estiver concluído
-   - Reset Falange: volta pro passo 1
+   [JS H.1] P2 — ÁUDIO POR PASSOS
 ========================================================= */
 const P2AUDIO = {
   idx: 0,
@@ -1388,7 +1322,7 @@ const P2AUDIO = {
     { title:"SU / SUS",    audioSrc:"p2-03-su-sus.mp3" },
     { title:"NUESTRO/A",   audioSrc:"p2-04-nuestro.mp3" },
     { title:"MÍO / MÍA",   audioSrc:"p2-05-mio-mia.mp3" },
-    { title:"MÍOS / MÍAS", audioSrc:"p2-06-mios-mias.mp3" }, /* ✅ PASSO 6 ESTÁ AQUI */
+    { title:"MÍOS / MÍAS", audioSrc:"p2-06-mios-mias.mp3" },
     { title:"REPASO 1",    audioSrc:"p2-07-repaso.mp3" },
     { title:"REPASO 2",    audioSrc:"p2-08-repaso2.mp3" },
   ],
@@ -1400,7 +1334,6 @@ function initP2Audio(){
   p2RenderList();
   p2RenderStep();
 }
-
 function p2RenderList(){
   const list = document.getElementById("p2AudioList");
   if(!list) return;
@@ -1424,7 +1357,6 @@ function p2RenderList(){
     list.appendChild(row);
   });
 }
-
 function p2RenderStep(){
   const stepText = document.getElementById("p2StepText");
   const audio = document.getElementById("p2Audio");
@@ -1433,20 +1365,17 @@ function p2RenderStep(){
   if(stepText) stepText.textContent = `Paso ${P2AUDIO.idx + 1} de ${P2AUDIO.steps.length}`;
 
   if(audio){
-    audio.src = s.audioSrc; // ✅ troque pelos seus mp3 reais
+    audio.src = s.audioSrc; /* troque pelos seus mp3 reais */
     audio.load();
   }
-
   p2RenderList();
 }
-
 function p2PlayAudio(){
   const audio = document.getElementById("p2Audio");
   if(!audio) return;
   audio.currentTime = 0;
   audio.play().catch(()=>{});
 }
-
 function p2Restart(){
   P2AUDIO.idx = 0;
   P2AUDIO.done = new Array(P2AUDIO.steps.length).fill(false);
@@ -1458,12 +1387,10 @@ function p2Restart(){
   }
   p2RenderStep();
 }
-
 function p2MarkDoneStep(){
   P2AUDIO.done[P2AUDIO.idx] = true;
   p2RenderList();
 }
-
 function p2Next(){
   if(!P2AUDIO.done[P2AUDIO.idx]){
     alert("⚠️ Para avançar, conclua o passo atual: preencha e clique em VERIFICAR TUDO na coluna da direita.");
@@ -1478,14 +1405,13 @@ function p2Next(){
 }
 
 /* =========================================================
-   [INÍCIO] I) P4 — ESCAPE ROOM (4 respostas → código FALG)
+   [JS I] P4 — ESCAPE ROOM
 ========================================================= */
 function updateP4Out(){
   const out = document.getElementById("p4CodeOut");
   if(!out) return;
   out.innerText = `${STATE.p4.keys[0]} ${STATE.p4.keys[1]} ${STATE.p4.keys[2]} ${STATE.p4.keys[3]}`;
 }
-
 function resetP4Escape(){
   const inputs = document.querySelectorAll(".p4");
   inputs.forEach(i=>{
@@ -1502,10 +1428,8 @@ function resetP4Escape(){
   document.getElementById("p4FinalCode").value = "";
   document.getElementById("p4FinalMsg").innerText = "";
 }
-
 function checkP4Escape(){
   const inputs = [...document.querySelectorAll(".p4")];
-
   const letters = ["F","A","L","G"];
   let okCount = 0;
 
@@ -1536,7 +1460,6 @@ function checkP4Escape(){
     alert("❌ Ainda há erros. Corrija e verifique novamente.");
   }
 }
-
 function checkP4FinalCode(){
   const val = normUp(document.getElementById("p4FinalCode").value).replace(/\s+/g,"");
   const msg = document.getElementById("p4FinalMsg");
@@ -1561,7 +1484,7 @@ function checkP4FinalCode(){
 }
 
 /* =========================================================
-   [INÍCIO] J) P4 — REVISÃO (MCQ)
+   [JS J] P4 — REVISÃO (MCQ)
 ========================================================= */
 function checkMcqP4(){
   const chosen = document.querySelector(`input[name="p4q"]:checked`);
@@ -1585,7 +1508,7 @@ function checkMcqP4(){
 }
 
 /* =========================================================
-   [INÍCIO] K) CONCLUIR P4 (Escape + Revisão)
+   [JS K] CONCLUIR P4
 ========================================================= */
 function tryFinishP4(showAlerts){
   if(STATE.done.p4C && STATE.done.p4D){
@@ -1599,16 +1522,15 @@ function tryFinishP4(showAlerts){
 }
 
 /* =========================================================
-   [INÍCIO] L) SNAKE FALANGE — POSSESSIVOS
-   Regras:
-   - Come o alvo correto → +1 ponto e avança rodada
-   - Come errado / parede / corpo → RESET TOTAL (Regra Falange)
+   [JS L] SNAKE — ENGINE
 ========================================================= */
 const SNAKE = {
   running:false,
   timer:null,
 
+  /* Velocidade: menor = mais rápido. Aumente para ficar mais lento. */
   speedMs: 180,
+
   goalRounds: 10,
   round: 1,
   score: 0,
@@ -1619,58 +1541,41 @@ const SNAKE = {
 
   snake: [{x:5,y:6},{x:4,y:6},{x:3,y:6}],
   foods: [],
-  target: null, // { w:"mis", t:"ANTES" }
+  target: null,
 
   pool: [
-    /* ===== ANTES DEL SUSTANTIVO ===== */
-    { w:"mi",   t:"ANTES" },
-    { w:"mis",  t:"ANTES" },
-    { w:"tu",   t:"ANTES" },
-    { w:"tus",  t:"ANTES" },
-    { w:"su",   t:"ANTES" },
-    { w:"sus",  t:"ANTES" },
-    { w:"nuestro",  t:"ANTES" },
-    { w:"nuestra",  t:"ANTES" },
-    { w:"nuestros", t:"ANTES" },
-    { w:"nuestras", t:"ANTES" },
-    { w:"vuestro",  t:"ANTES" },
-    { w:"vuestra",  t:"ANTES" },
-    { w:"vuestros", t:"ANTES" },
-    { w:"vuestras", t:"ANTES" },
+    { w:"mi",   t:"ANTES" }, { w:"mis",  t:"ANTES" },
+    { w:"tu",   t:"ANTES" }, { w:"tus",  t:"ANTES" },
+    { w:"su",   t:"ANTES" }, { w:"sus",  t:"ANTES" },
+    { w:"nuestro",  t:"ANTES" }, { w:"nuestra",  t:"ANTES" },
+    { w:"nuestros", t:"ANTES" }, { w:"nuestras", t:"ANTES" },
+    { w:"vuestro",  t:"ANTES" }, { w:"vuestra",  t:"ANTES" },
+    { w:"vuestros", t:"ANTES" }, { w:"vuestras", t:"ANTES" },
 
-    /* ===== DESPUÉS DEL SUSTANTIVO ===== */
-    { w:"mío",   t:"DESPUÉS" },
-    { w:"mía",   t:"DESPUÉS" },
-    { w:"míos",  t:"DESPUÉS" },
-    { w:"mías",  t:"DESPUÉS" },
+    { w:"mío",   t:"DESPUÉS" }, { w:"mía",   t:"DESPUÉS" },
+    { w:"míos",  t:"DESPUÉS" }, { w:"mías",  t:"DESPUÉS" },
 
-    { w:"tuyo",  t:"DESPUÉS" },
-    { w:"tuya",  t:"DESPUÉS" },
-    { w:"tuyos", t:"DESPUÉS" },
-    { w:"tuyas", t:"DESPUÉS" },
+    { w:"tuyo",  t:"DESPUÉS" }, { w:"tuya",  t:"DESPUÉS" },
+    { w:"tuyos", t:"DESPUÉS" }, { w:"tuyas", t:"DESPUÉS" },
 
-    { w:"suyo",  t:"DESPUÉS" },
-    { w:"suya",  t:"DESPUÉS" },
-    { w:"suyos", t:"DESPUÉS" },
-    { w:"suyas", t:"DESPUÉS" },
+    { w:"suyo",  t:"DESPUÉS" }, { w:"suya",  t:"DESPUÉS" },
+    { w:"suyos", t:"DESPUÉS" }, { w:"suyas", t:"DESPUÉS" },
 
-    { w:"nuestro",  t:"DESPUÉS" },
-    { w:"nuestra",  t:"DESPUÉS" },
-    { w:"nuestros", t:"DESPUÉS" },
-    { w:"nuestras", t:"DESPUÉS" },
+    { w:"nuestro",  t:"DESPUÉS" }, { w:"nuestra",  t:"DESPUÉS" },
+    { w:"nuestros", t:"DESPUÉS" }, { w:"nuestras", t:"DESPUÉS" },
 
-    { w:"vuestro",  t:"DESPUÉS" },
-    { w:"vuestra",  t:"DESPUÉS" },
-    { w:"vuestros", t:"DESPUÉS" },
-    { w:"vuestras", t:"DESPUÉS" }
+    { w:"vuestro",  t:"DESPUÉS" }, { w:"vuestra",  t:"DESPUÉS" },
+    { w:"vuestros", t:"DESPUÉS" }, { w:"vuestras", t:"DESPUÉS" }
   ]
 };
 
+/* Canvas helpers */
 function snakeCanvas(){ return document.getElementById("snakeCanvas"); }
 function snakeCtx(){ return snakeCanvas().getContext("2d"); }
 function snakeCols(){ return Math.floor(snakeCanvas().width / SNAKE.grid); }
 function snakeRows(){ return Math.floor(snakeCanvas().height / SNAKE.grid); }
 
+/* HUD */
 function snakeUpdateHud(){
   const el = document.getElementById("snakeHud");
   if(!el) return;
@@ -1678,15 +1583,24 @@ function snakeUpdateHud(){
   el.innerHTML = `Rodada ${SNAKE.round}/${SNAKE.goalRounds} • COMER: <b>${alvo}</b> • Pontos: <b>${SNAKE.score}</b>`;
 }
 
-/* Mobile pad: aparece via CSS em telas pequenas, mas aqui garantimos em load também */
-function snakeInitPad(){
-  const isSmall = window.matchMedia && window.matchMedia("(max-width: 980px)").matches;
+/* =========================================================
+   ✅ VISIBILIDADE DO PAD (MOBILE)
+   - aparece em telas menores OU em dispositivos com touch
+========================================================= */
+function snakePadApplyVisibility(){
   const pad = document.getElementById("snakePad");
-  if(pad) pad.style.display = isSmall ? "flex" : "none";
-}
-window.addEventListener("resize", snakeInitPad);
+  if(!pad) return;
 
-/* Teclado */
+  const isSmall = window.matchMedia("(max-width: 1024px)").matches;
+  const hasTouch = ("ontouchstart" in window) || (navigator.maxTouchPoints > 0);
+
+  pad.style.display = (isSmall && hasTouch) ? "flex" : "none";
+}
+window.addEventListener("load", snakePadApplyVisibility);
+window.addEventListener("resize", snakePadApplyVisibility);
+window.addEventListener("orientationchange", snakePadApplyVisibility);
+
+/* Teclado (desktop) */
 window.addEventListener("keydown",(e)=>{
   const k = e.key.toLowerCase();
   if(k==="arrowup" || k==="w") snakeTurn("U");
@@ -1695,6 +1609,7 @@ window.addEventListener("keydown",(e)=>{
   if(k==="arrowright" || k==="d") snakeTurn("R");
 });
 
+/* Direção (sem permitir inversão) */
 function snakeTurn(dir){
   const d = SNAKE.dir;
   if(dir==="U" && d.y===0) SNAKE.nextDir = {x:0,y:-1};
@@ -1703,24 +1618,26 @@ function snakeTurn(dir){
   if(dir==="R" && d.x===0) SNAKE.nextDir = {x: 1,y:0};
 }
 
-/* Iniciar / pausar / reset */
+/* Start / Pause / Reset */
 function snakeStart(){
   if(SNAKE.running) return;
   SNAKE.running = true;
 
-  /* ✅ CORRIGIDO: usa SNAKE.target (não existe targetText) */
   if(!SNAKE.target) snakeNewRound();
+  snakePadApplyVisibility();
 
   SNAKE.timer = setInterval(snakeTick, SNAKE.speedMs);
 }
-
 function snakePause(){
   SNAKE.running = false;
-  if(SNAKE.timer){ clearInterval(SNAKE.timer); SNAKE.timer=null; }
+  if(SNAKE.timer){
+    clearInterval(SNAKE.timer);
+    SNAKE.timer=null;
+  }
 }
-
 function snakeResetAll(){
   snakePause();
+
   SNAKE.round = 1;
   SNAKE.score = 0;
 
@@ -1731,15 +1648,15 @@ function snakeResetAll(){
   SNAKE.foods = [];
   SNAKE.target = null;
 
-  /* Progresso da Página 3 */
   STATE.done.p3 = false;
   setBadge("badgeP3", false);
 
   snakeDraw();
   snakeUpdateHud();
+  snakePadApplyVisibility();
 }
 
-/* Nova rodada: cria alvo + 5 distratores */
+/* Nova rodada: alvo + 5 distratores */
 function snakeNewRound(){
   SNAKE.target = SNAKE.pool[Math.floor(Math.random()*SNAKE.pool.length)];
 
@@ -1754,7 +1671,6 @@ function snakeNewRound(){
     ...distractors.map(p=>({ text:p.w, isTarget:false }))
   ];
 
-  /* posiciona comidas */
   SNAKE.foods = [];
   all.forEach(item=>{
     const pos = snakeRandPos();
@@ -1764,38 +1680,33 @@ function snakeNewRound(){
   snakeUpdateHud();
   snakeDraw();
 }
-
-/* Posição aleatória que não colida com cobra/comida */
 function snakeRandPos(){
   const cols = snakeCols(), rows = snakeRows();
   while(true){
     const pos = { x: Math.floor(Math.random()*cols), y: Math.floor(Math.random()*rows) };
 
-    const hitSnake = SNAKE.snake.some(s=>s.x===pos.x && s.y===pos.y);
-    if(hitSnake) continue;
-
-    const hitFood = SNAKE.foods.some(f=>f.x===pos.x && f.y===pos.y);
-    if(hitFood) continue;
+    if(SNAKE.snake.some(s=>s.x===pos.x && s.y===pos.y)) continue;
+    if(SNAKE.foods.some(f=>f.x===pos.x && f.y===pos.y)) continue;
 
     return pos;
   }
 }
 
-/* Tick do jogo */
+/* Tick */
 function snakeTick(){
   SNAKE.dir = {...SNAKE.nextDir};
 
   const head = SNAKE.snake[0];
   const newHead = { x: head.x + SNAKE.dir.x, y: head.y + SNAKE.dir.y };
 
-  /* parede -> reset total */
+  /* parede */
   if(newHead.x < 0 || newHead.y < 0 || newHead.x >= snakeCols() || newHead.y >= snakeRows()){
     alert("❌ Bateu na parede. Regra Falange: reinicia do zero.");
     snakeResetAll();
     return;
   }
 
-  /* corpo -> reset */
+  /* corpo */
   if(SNAKE.snake.some((s,i)=> i>0 && s.x===newHead.x && s.y===newHead.y)){
     alert("❌ Bateu no corpo. Regra Falange: reinicia do zero.");
     snakeResetAll();
@@ -1827,6 +1738,7 @@ function snakeTick(){
       alert("🏁 Parabéns! Você completou o Snake (Página 3).");
       snakeDraw();
       snakeUpdateHud();
+      if(isAllDone()) openCertificate();
       return;
     }
 
@@ -1881,7 +1793,6 @@ function snakeDraw(){
 
     ctx.fillRect(x+2,y+2,SNAKE.grid-4,SNAKE.grid-4);
 
-    /* olho da cabeça */
     if(i===0){
       ctx.clearRect(x+SNAKE.grid-9, y+6, 3, 3);
     }
@@ -1889,60 +1800,27 @@ function snakeDraw(){
 }
 
 /* =========================================================
-   [INÍCIO] M) INIT GERAL (1 vez)
+   [JS M] PATCH MOBILE — bloquear scroll durante jogo (melhor controle)
+========================================================= */
+const snakeScrollBlocker = (e)=>{ if(SNAKE.running) e.preventDefault(); };
+document.addEventListener("touchmove", snakeScrollBlocker, { passive:false });
+document.addEventListener("keydown", function(e){
+  if(SNAKE.running){
+    const keys = ["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"," "];
+    if(keys.includes(e.key)) e.preventDefault();
+  }
+});
+
+/* =========================================================
+   [JS N] INIT GERAL
 ========================================================= */
 function initAll(){
   initP2Audio();
   updateP4Out();
-  snakeInitPad();
-  snakeResetAll(); /* desenha estado inicial do snake */
+  snakeResetAll();            /* desenha estado inicial */
+  snakePadApplyVisibility();  /* mostra pad em mobile */
 }
 initAll();
-/* =========================================================
-   PATCH MOBILE — Snake Falange
-   - Mostra pad sempre em telas pequenas
-   - Atualiza ao girar tela
-   - Bloqueia scroll enquanto jogo roda
-========================================================= */
-
-function snakeUpdatePadVisibility(){
-  const pad = document.getElementById("snakePad");
-  if(!pad) return;
-
-  const isMobile = window.matchMedia("(max-width: 1024px)").matches;
-  pad.style.display = isMobile ? "flex" : "none";
-}
-
-// Atualiza ao carregar
-window.addEventListener("load", snakeUpdatePadVisibility);
-
-// Atualiza ao redimensionar
-window.addEventListener("resize", snakeUpdatePadVisibility);
-
-// Atualiza ao girar tela (iPhone/iPad)
-window.addEventListener("orientationchange", snakeUpdatePadVisibility);
-
-
-/* ===== BLOQUEIO DE SCROLL DURANTE O JOGO ===== */
-
-let snakeScrollBlocker = function(e){
-  if(SNAKE.running){
-    e.preventDefault();
-  }
-};
-
-// Bloqueia toque
-document.addEventListener("touchmove", snakeScrollBlocker, { passive:false });
-
-// Bloqueia scroll com teclado
-document.addEventListener("keydown", function(e){
-  if(SNAKE.running){
-    const keys = ["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"," "];
-    if(keys.includes(e.key)){
-      e.preventDefault();
-    }
-  }
-});
 </script>
 
 </body>
