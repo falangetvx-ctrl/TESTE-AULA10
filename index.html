@@ -982,12 +982,16 @@
     </div>
   </section>
 
-  <!-- =====================================================
-       ✅ PÁGINA 2 — ÁUDIO + COMPLETA (RESET TOTAL SE ERRAR)
+   <!-- =====================================================
+       ✅ PÁGINA 2 — ATIVIDADE 1 + ATIVIDADE 2 (2 COLUNAS)
+       - Coluna ESQ: Completa (tónicos) + IMAGEM (guia)
+         Regra Falange: 1 erro -> apaga tudo da Atividade 1
+       - Coluna DIR: Completa y verifica (já existente no seu sistema)
   ====================================================== -->
-  <section class="page" aria-label="Página 2 — Áudio + Completa (Posesivos)">
+  <section class="page" aria-label="Página 2 — Atividade 1 e 2 (Posesivos)">
     <div class="content">
 
+      <!-- ===================== CABEÇALHO ===================== -->
       <div class="titleRow">
         <div class="bncc" style="padding-right:26mm;">AULA 10</div>
         <div class="centerTitle">Escucha + Completa — Regra Falange</div>
@@ -998,42 +1002,85 @@
         <div class="bar"></div><div style="width:12px;"></div><div class="bar"></div>
       </div>
 
+      <!-- =====================================================
+           ✅ DUAS COLUNAS (IMPORTANTE!)
+           - Cada coluna precisa ser um <div> separado
+      ====================================================== -->
       <div class="cols">
 
+        <!-- =====================================================
+             COLUNA ESQUERDA — ATIVIDADE 1 (TÓNICOS) + IMAGEM
+        ====================================================== -->
         <div>
           <div class="card">
-            <div class="cardTitle">🎧 Escucha (1 por vez)</div>
+            <div class="cardTitle">🧩 ATIVIDADE 1 — Completa con los posesivos tónicos</div>
 
-            <p class="actText">
-              Escuche o áudio do <b>Paso atual</b>. Depois, complete as frases na coluna da direita.
-              <br><br>
-              ✅ Só avança quando clicar em <b>VERIFICAR TUDO</b> e estiver correto.
-              <br>
-              ⚠️ <b>Regra Falange:</b> errou 1 vez → reinicia tudo e volta ao áudio 1.
-            </p>
-
-            <div class="p2AudioBar">
-              <div class="p2Step" id="p2StepText">Paso 1 de 8</div>
-
-              <div class="p2AudioBtns">
-                <button class="p2AudioBtn p2AudioBtnPrimary" type="button" onclick="p2PlayAudio()">▶️ Escuchar</button>
-                <button class="p2AudioBtn" type="button" onclick="p2Restart()">🔄 Reiniciar</button>
-                <button class="p2AudioBtn" type="button" onclick="p2Next()">➡️ Próximo</button>
-              </div>
+            <!-- IMAGEM-GUIA (coloque na mesma pasta do HTML)
+                 ✅ Nome recomendado: imagen1-actividad-posesivos.jpg
+                 Se estiver com outro nome, troque no src abaixo. -->
+            <div class="bigImgWrap" style="margin-bottom:10px;">
+              <img src="actividad-posesivos.jpg" alt="Imagem guia da atividade de posesivos">
             </div>
 
-            <audio id="p2Audio"></audio>
-            <div class="p2AudioList" id="p2AudioList"></div>
+            <!-- TEXTO + INPUTS (classe .act) -->
+            <div class="dialogue" id="actividadPosesivos">
 
-            <div class="p2SmallHint">
-              Dica: o áudio sempre fala o tema do passo. Ex.: “Completa con <b>mi</b> y <b>mis</b>…”
+  <p><b>Ana:</b> ¿De quién es este teléfono?</p>
+  <p><b>Paco:</b> Es mío.</p>
+
+  <p><b>Laura:</b> ¡Uy! Aquí hay una caja muy grande con una lavadora. ¿De quién es?</p>
+  <p><b>Ana:</b> No es <input class="blank act" data-right="mía">, es de Luis.</p>
+
+  <p><b>Paco:</b> ¿Y estos libros? ¿Son tuyos, Ana?</p>
+  <p><b>Ana:</b> Sí, pero también son <input class="blank act" data-right="suyos">.</p>
+
+  <p><b>Paco:</b> O sea que son <input class="blank act" data-right="vuestros">. Entonces para vuestra habitación.</p>
+
+  <p><b>Ana:</b> ¡Gracias! ¿Y estas pelotas de fútbol son <input class="blank act" data-right="tuyas">?</p>
+
+  <p><b>Paco:</b> Sí, las dos son <input class="blank act" data-right="mías">. Son nuevas.</p>
+
+  <p><b>Laura:</b> ¡Pues podemos jugar juntos al fútbol algún día!</p>
+  <p><b>Paco:</b> Claro.</p>
+
+  <p><b>Ana:</b> ¿Sabes? Nosotras tenemos una moto nueva.</p>
+
+  <p><b>Paco:</b> ¿En serio? ¿La moto amarilla es <input class="blank act" data-right="vuestra">? ¿Y la bici morada que hay al lado de la puerta? ¿No es tuya?</p>
+
+  <p><b>Ana:</b> No, no es <input class="blank act" data-right="mía">. Es <input class="blank act" data-right="suya"> y de Juan.</p>
+
+  <p><b>Laura:</b> Así es, pero podéis usarla también vosotros.</p>
+
+  <p><b>Paco:</b> ¿Y estas gafas de sol?</p>
+
+  <p><b>Laura:</b> Son <input class="blank act" data-right="suyas">, las <input class="blank act" data-right="mías"> las tengo en mi habitación.</p>
+
+  <p><b>Ana:</b> Tengo hambre. ¿Estos tacos son <input class="blank act" data-right="nuestros">?</p>
+
+  <p><b>Paco:</b> Sí, son <input class="blank act" data-right="nuestros">. ¿Esa pizza del horno no es tuya?</p>
+
+  <p><b>Ana:</b> ¡Ay sí! Es <input class="blank act" data-right="mía"> y está completamente quemada. ¡Qué desastre!</p>
+
+</div>
+
+            <!-- BOTÕES DA ATIVIDADE 1 -->
+            <div class="controls">
+              <button class="ctrlBtn" type="button" onclick="verificarActividad()">VERIFICAR</button>
+              <button class="ctrlBtn" type="button" onclick="reiniciarActividad()">REINICIAR</button>
+            </div>
+
+            <div class="p2SmallHint" style="margin-top:10px;">
+              ⚠️ Regra Falange: errou 1 campo → apaga tudo desta atividade.
             </div>
           </div>
         </div>
 
+        <!-- =====================================================
+             COLUNA DIREITA — ATIVIDADE 2 (SEU BLOCO P2)
+        ====================================================== -->
         <div>
           <div class="card">
-            <div class="cardTitle">🧩 Completa y verifica</div>
+            <div class="cardTitle">🧩 ATIVIDADE 2 — Completa y verifica</div>
 
             <div class="dialogue" id="p2Box">
               <p><b>1)</b> Yo tengo <input class="blank sm p2" data-right="mi"> libro. (meu livro)</p>
@@ -1052,17 +1099,22 @@
             </div>
 
             <div class="doneBadge" id="badgeP2">✅ Página 2 concluída!</div>
+
+            <div class="p2SmallHint" style="margin-top:10px;">
+              💡 Dica: “mi/tu/su/nuestro/vuestro” (antes). “mío/mía/míos/mías” (depois).
+            </div>
           </div>
         </div>
 
-      </div>
+      </div><!-- /cols -->
 
+      <!-- ===================== NAVEGAÇÃO ===================== -->
       <div class="controls">
         <button class="ctrlBtn" type="button" onclick="scrollToPage(1)">⬅️ VOLTAR</button>
         <button class="ctrlBtn" type="button" onclick="scrollToPage(3)">➡️ PÁGINA 3</button>
       </div>
 
-    </div>
+    </div><!-- /content -->
   </section>
 
   <!-- =====================================================
@@ -1202,6 +1254,9 @@
 
     </div>
   </section>
+
+
+  
 
 </div><!-- /book -->
 
@@ -1954,6 +2009,41 @@ function initAll(){
   });
 }
 document.addEventListener("DOMContentLoaded", initAll);
+function reiniciarActividad(){
+  const inputs = document.querySelectorAll(".act");
+
+  inputs.forEach(i=>{
+    i.value="";
+    i.classList.remove("is-right","is-wrong");
+  });
+}
+
+function verificarActividad(){
+
+  const inputs = document.querySelectorAll(".act");
+
+  for(const input of inputs){
+
+    const correcto = input.dataset.right.toLowerCase();
+    const valor = input.value.trim().toLowerCase();
+
+    if(valor !== correcto){
+
+      alert("❌ Error. Regla Falange: se borra todo.");
+      reiniciarActividad();
+      return;
+
+    }
+
+    input.classList.add("is-right");
+
+  }
+
+  alert("✅ ¡Perfecto! Actividad correcta.");
+}
+
+
+
 </script>
 
 </body>
